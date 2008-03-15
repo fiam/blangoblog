@@ -1,0 +1,83 @@
+{% extends "blango/list.html" %}
+{% load i18n %}
+{% load humanize %}
+{% block rss %}
+<link rel="alternate" type="application/rss+xml" title="{% trans "Latest comments for" %} {{ entry.title }}" href="{{ blango_url }}feeds/comments/{{ entry.slug }}/"/>
+{% endblock %}
+{% block rssbox %}
+<a title="{% trans "Latest comments for" %} {{ entry.title }}" href="{{ blango_url }}feeds/comments/{{ entry.slug }}/">RSS</a>
+{% endblock %}
+{% block subtitle %} &raquo; {{ entry.title }}{% endblock %}
+{% block content %}
+<div id="content-inner">
+<ul id="entries">
+    <li class="entry" id="entry-{{ entry.id }}">
+        <h2>{{ entry.title }}</h2>
+        <span class="time">{{ entry.published|naturalday }} {% trans "at" %} {{ entry.published|time:"H:i:s" }} {{ entry.published|date:"T" }}</span>
+        <div class="ebody">
+            {{ entry.body_html|safe }}
+        </div>
+        <div class="meta">
+            {% trans "Tags" %}:
+            <ul class="tags">
+                {% for t in entry.tags.all %}
+                    <li><a href="{{ blango_url }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if entry.translations %}
+            {% trans "This entry is also available in the following languages:" %}
+            <ul id="translations">
+            {% for t in entry.translations.all %}
+                <li>
+                    <a href="{{ t.get_absolute_url }}">
+                        <img alt="{{ t.slug }}" src="/site-media/lang/{{ t.language.iso639_1 }}.gif" />
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+</ul>
+<h4>
+    {% blocktrans count entry.comments.count as ccount %}
+        {{ ccount }} comment
+        {% plural %}
+        {{ ccount }} comments
+    {% endblocktrans %}
+    {% trans "for" %} "{{ entry.title }}"
+</h4>
+<ul id="comments">
+    {% for c in entry.comments.all %}
+        <li class="comment" id="comment-{{ forloop.counter }}">
+            <div class="comment-top">
+                <span class="number">#{{ forloop.counter }}</span>
+                <span class="author">
+                    {% if c.author_uri %}
+                        <a rel="external nofollow" href="{{ c.author_uri }}">{{ c.author }}</a>
+                    {% else %}
+                        {{ c.author }}
+                    {% endif %}
+                </span>
+                <span class="time">
+                    {{ c.submitted|naturalday }}
+                    {% trans "at" %}
+                    {{ entry.published|time:"H:i:s" }}
+                    {{ entry.published|date:"T" }}
+                </span>
+                <span class="permalink">
+                    ( <a href="#comment-{{ forloop.counter }}">{% trans "Permalink" %}</a> )
+                </span>
+            </div>
+            <div class="comment-body">
+                {{ c.body }}
+            </div>
+        </li>
+    {% endfor %} 
+</ul>
+<form class="commentform" method="post" action="{{ entry.get_absolute_url }}" />
+    {{ comment_form.as_p }}
+    <input type="submit" value="{% trans "Submit" %}" />
+</form>
+</div>
+{% endblock %}

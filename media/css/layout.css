@@ -1,0 +1,237 @@
+body, html, ol, ul, li, span,
+p, h1, h2, h3, h4, div, img {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 100.01%;
+    line-height: 1.125em;
+    color: #35383D;
+    padding: 15px;
+/*    background: url(/site-media/img/bg.jpg) 0 0 repeat-x;*/
+    background: #D5D5D5;
+}
+h1, h2, h3, h4 {
+    font-family: "Trebuchet MS";
+}
+a {
+    color: #00A0E3;
+}
+a:hover {
+    color: #5C3399;
+}
+#header {
+    color: #FFF;
+    text-shadow: 2px 2px 2px #000;
+    background: #005B8B;
+    padding: 1em;
+    -moz-border-radius: 15px 15px 0 15px;
+    -webkit-border-radius: 15px;
+    -webkit-border-bottom-right-radius: 0;
+}
+#header h2 {
+    font-size: .9em;
+    margin-top: 0.5em;
+}
+#header h1 a,
+#header h2 a {
+    text-decoration: none;
+    color: #FFF;
+    outline: 0;
+}
+#navbar {
+    float: right;
+    clear: right;
+    width: 12em;
+    padding-left: 1em;
+    background: #005B8B;
+    -moz-border-radius: 0 0 0 15px;
+    -webkit-border-bottom-left-radius: 15px;
+}
+#navbar li a {
+    color: #FFF;
+}
+#navbar h3 {
+    margin-top: 1em;
+    border-bottom: 1px dotted #FFC;
+    color: #FFC;
+    font-weight: bold;
+}
+.navbox {
+    font-size: 80%;
+}
+.navbox-body {
+    padding: 1em;
+}
+#all {
+    margin: auto;
+    background: #FFF;
+    padding: 5px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+#content {
+    margin-right: 13em;
+    background: #005B8B;
+}
+#content-inner {
+    background: #FFF;
+    padding: 1em;
+    font-size: .9em;
+    -moz-border-radius: 0 15px 0 0;
+    -webkit-border-top-right-radius: 15px;
+}
+#navbar ul,
+ul#entries,
+ul.tags {
+    list-style-type: none;
+}
+ul.tags, 
+ul.tags li {
+    display: inline;
+}
+li.entry h3 {
+    letter-spacing: -1px;
+}
+li.entry h3 a {
+    color: #007AC8;
+    font-size: 1.1em;
+    text-decoration: none;
+}
+li.entry h3 a:hover {
+    color: #C60;
+}
+li.entry span.time {
+    display: block;
+    color: #8A98A2;
+    font-weight: bold;
+    margin: 0.5em 0 1em 0;
+    border-bottom: 1px dotted #8A98A2;
+    font-size: 80%;
+}
+li.entry .ebody {
+    margin: 1em 0;
+    line-height: 1.5em;
+    font-size: 0.82em;
+}
+.ebody p {
+    text-indent: 2em;
+}
+.meta {
+    border-top: 1px dotted #8A98A2;
+    margin-bottom: 2em;
+    padding: 0.5em;
+    font-size: 0.8em;
+}
+blockquote {
+    background: #E9F8FF;
+    color: #336699;
+    -moz-border-radius: 5px;
+    padding: 1em;
+}
+#rssbox {
+    background: #09182A;
+    text-align: center;
+    padding: 1em;
+    -moz-border-radius: 15px 0 0 15px;
+    -webkit-border-top-left-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+}
+#rssbox a {
+    display: block;
+    text-indent: -2000em;
+    background: url(../img/rss.png) 50% 0% no-repeat;
+    width: 128px;
+    height: 128px;
+    outline: 0;
+}
+#aboutbox {
+    background: #FFF;
+    margin: 2em;
+    text-align: center;
+    width: 10em;
+    height: 10em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+#footer {
+    border-top: 2px solid #005B8B;
+    margin: 2em -5px 0 -5px;
+    padding-bottom: 2em;
+}
+form.commentform {
+    margin-top: 3em;
+}
+form.commentform p {
+    line-height: 2em;
+    margin: 0.5em 0;
+}
+form.commentform p label {
+    width: 10em;
+    float: left;
+    clear: left;
+    font-weight: bold;
+}
+form.commentform input,
+form.commentform textarea {
+    border: 1px solid #808080;
+    padding: 0.2em;
+}
+#comments {
+    margin-top: 2em;
+    list-style-type: none;
+}
+#comments li {
+    font-size: 0.8em;
+    padding: 0 0.5em 0.5em 0.5em;
+    background: #F6F1DE;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin-bottom: 2em;
+}
+#comments li .comment-top {
+    padding: 0.5em;
+    text-indent: 2em;
+}
+#comments li .comment-body {
+    clear: left;
+    padding: 1em;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    background: #FFF;
+}
+#comments li .comment-top .number {
+    float: right;
+    font-size: 1.5em;
+    color: #AAA;
+}
+#comments li .comment-top .author {
+    display: block;
+}
+#comments li .comment-top .time {
+    float: left;
+}
+#comments li .comment-top .permalink {
+    float: right;
+}
+#languages {
+    float: right;
+}
+#languages img {
+    border: none;
+}
+#languages a {
+    text-decoration: none;
+}
+ul#translations {
+    list-style: none;
+    text-align: center;
+    margin: 0.5em 0;
+}
+ul#translations li {
+    display: inline;
+}
+ul#translations li img {
+    border: none;
+}

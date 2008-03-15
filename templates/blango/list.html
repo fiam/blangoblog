@@ -1,0 +1,76 @@
+{% extends "blango/base.html" %}
+{% load i18n %}
+{% load humanize %}
+{% block rss %}
+{% if tag_slug %}
+<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }} ({{ tag_slug }})" href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ language.iso639_1 }}/"/>
+{% else %}
+<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }}" href="{{ blango_url }}feeds/latest/{{ language.iso639_1 }}/"/>
+{% endif %}
+{% endblock %}
+{% block navbar %}
+<div id="rssbox">
+    {% block rssbox %}
+    {% if tag_slug %}
+        <a title="{% trans "Latest entries in" %} {{ language.name }} ({{ tag_slug }})" href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ language.iso639_1 }}/">RSS</a>
+    {% else %}
+        <a title="{% trans "Latest entries in" %} {{ language.name }}" href="{{ blango_url }}feeds/latest/{{ language.iso639_1 }}/">RSS</a>
+    {% endif %}
+    {% endblock %}
+</div>
+<div class="navbox">
+    <h3>{% trans "Archives" %}</h3>
+    <div class="navbox-body">
+        <ul>
+            {% for d in dates %}
+                <li>&raquo; <a href="{{ blango_url }}{{ blango_lang }}{{ d.year }}/{{ d|date:"m" }}/">{{ d|date:"F, Y" }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="navbox">
+    <h3>{% trans "Tags" %}</h3>
+    <div class="navbox-body">
+        <ul>
+            {% for t in tags %}
+                <li>&raquo; <a href="{{ blango_url }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="navbox" id="aboutbox">
+    About me
+</div>
+{% endblock %}
+{% block content %}
+<div id="content-inner">
+<ul id="entries">
+    {% for e in entries %}
+        <li class="entry" id="entry-{{ e.id }}">
+            <h3><a href="{{ e.get_absolute_url }}">{{ e.title }}</a></h3>
+            <span class="time">{{ e.published|naturalday }} {% trans "at" %} {{ e.published|time:"H:i:s" }} {{ e.published|date:"T" }}</span>
+            <div class="ebody">
+                {{ e.body_html|safe }}
+            </div>
+            <div class="meta">
+                {% trans "Tags" %}: <ul class="tags">
+                    {% for t in e.tags.all %}
+                        <li><a href="{{ blango_url }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
+                    {% endfor %}
+                </ul>
+            | <span class="comments">
+                <a href="{{ e.get_absolute_url }}#comments">
+                    {% blocktrans count e.comments.count as ccount %}
+                        {{ ccount }} comment
+                        {% plural %}
+                        {{ ccount }} comments
+                    {% endblocktrans %}
+                </a>
+            </span>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+</div>
+{% endblock %}

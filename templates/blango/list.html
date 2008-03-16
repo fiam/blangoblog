@@ -60,12 +60,7 @@
                     {% endfor %}
                 </ul>
             | <span class="comments">
-                <a href="{{ e.get_absolute_url }}#comments">
-                    {% blocktrans count e.comments.count as ccount %}
-                        {{ ccount }} comment
-                        {% plural %}
-                        {{ ccount }} comments
-                    {% endblocktrans %}
+                <a href="{{ e.get_absolute_url }}#comments">{% blocktrans count e.comments.count as ccount %}{{ ccount }} comment{% plural %}{{ ccount }} comments{% endblocktrans %}
                 </a>
             </span>
             </div>

@@ -151,7 +151,7 @@ class Comment(models.Model):
 
     @property
     def title(self):
-        return mark_safe(_('Comment by "%s <%s>"' % (self.author, self.author_email)))
+        return mark_safe(_('Comment by "%s"') % self.author)
     
     @property
     def description(self):

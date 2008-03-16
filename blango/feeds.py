@@ -18,7 +18,7 @@ class LatestEntries(Feed):
         return Language.objects.get(iso639_1=lang)
 
     def title(self, obj):
-        return _('%s | latest entries (%s)') % (BLANGO_TITLE, obj.name)
+        return _('%(title)s | latest entries (%(name)s)') % { 'title': BLANGO_TITLE, 'name': obj.name }
 
     def link(self, obj):
         return BLANGO_URL + obj.iso639_1 + '/'
@@ -38,7 +38,7 @@ class LatestEntriesByTag(LatestEntries):
         return (Tag.objects.get(slug=bits[0]), Language.objects.get(iso639_1=bits[1]))
 
     def title(self, obj):
-        return _('Latest entries in %s (%s)' % (obj[0].name, obj[1].name))
+        return _('Latest entries in %(language)s (%(name)s)') % { 'langugage': obj[0].name, 'name': obj[1].name }
 
     def link(self, obj):
         return '%s/%s/' % (obj[0].get_absolute_url(), obj[1].iso639_1)
@@ -57,7 +57,7 @@ class LatestComments(Feed):
         return Entry.objects.get(slug=bits[0])
 
     def title(self, obj):
-        return _('Latest comments for "%s"' % obj.title)
+        return _('Latest comments for "%s"') % obj.title
 
     def link(self, obj):
         return obj.get_absolute_url()

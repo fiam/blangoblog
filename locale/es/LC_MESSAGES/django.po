@@ -1,0 +1,177 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-03-16 04:43+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: blango/feeds.py:21
+#, python-format
+msgid "%(title)s | latest entries (%(name)s)"
+msgstr ""
+
+#: blango/feeds.py:41
+#, python-format
+msgid "Latest entries in %(language)s (%(name)s)"
+msgstr ""
+
+#: blango/feeds.py:60
+#, python-format
+msgid "Latest comments for \"%s\""
+msgstr "Últimos comentarios en \"%s\""
+
+#: blango/models.py:39
+msgid "language"
+msgstr "lenguaje"
+
+#: blango/models.py:40
+msgid "languages"
+msgstr "lenguajes"
+
+#: blango/models.py:55
+msgid "tag"
+msgstr "etiqueta"
+
+#: blango/models.py:56 blango/models.py:116
+msgid "tags"
+msgstr "etiquetas"
+
+#: blango/models.py:90
+msgid "Entry"
+msgstr "Entrada"
+
+#: blango/models.py:91 templates/blango/entry.html:21
+#: templates/blango/list.html:33 templates/blango/list.html.py:57
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: blango/models.py:92
+msgid "Language"
+msgstr "Lenguaje"
+
+#: blango/models.py:93
+msgid "Date published"
+msgstr ""
+
+#: blango/models.py:94
+msgid "Published translations"
+msgstr "Traducciones publicadas"
+
+#: blango/models.py:99
+msgid "entry"
+msgstr "entrada"
+
+#: blango/models.py:100
+msgid "entries"
+msgstr "entradas"
+
+#: blango/models.py:126
+msgid "Name"
+msgstr "Nombre"
+
+#: blango/models.py:127
+msgid "Website"
+msgstr "Página web"
+
+#: blango/models.py:128
+msgid "Email"
+msgstr "Email"
+
+#: blango/models.py:129
+msgid "Comment"
+msgstr "Comentario"
+
+#: blango/models.py:136
+msgid "comment"
+msgstr "comentario"
+
+#: blango/models.py:137
+msgid "comments"
+msgstr "comentarios"
+
+#: blango/models.py:154
+#, python-format
+msgid "Comment by \"%s\""
+msgstr "Comentario de \"%s\""
+
+#: templates/blango/entry.html:5 templates/blango/entry.html.py:8
+msgid "Latest comments for"
+msgstr "Últimos comentarios en"
+
+#: templates/blango/entry.html:16 templates/blango/entry.html.py:60
+#: templates/blango/list.html:52
+msgid "at"
+msgstr "a las"
+
+#: templates/blango/entry.html:29
+msgid "This entry is also available in the following languages:"
+msgstr "Esta entrada también está disponible en los siguientes lenguajes:"
+
+#: templates/blango/entry.html:43 templates/blango/list.html:63
+#, python-format
+msgid "%(ccount)s comment"
+msgid_plural "%(ccount)s comments"
+msgstr[0] "%(ccount)s comentario"
+msgstr[1] "%(ccount)s comentarios"
+
+#: templates/blango/entry.html:44
+msgid "for"
+msgstr "para"
+
+#: templates/blango/entry.html:65
+msgid "Permalink"
+msgstr "Enlace permanente"
+
+#: templates/blango/entry.html:76
+msgid "Submit"
+msgstr "Enviar"
+
+#: templates/blango/list.html:6 templates/blango/list.html.py:8
+#: templates/blango/list.html:15 templates/blango/list.html.py:17
+msgid "Latest entries in"
+msgstr "Últimas entradas en"
+
+#: templates/blango/list.html:22
+msgid "Archives"
+msgstr "Archivos"
+
+#~ msgid ""
+#~ "\n"
+#~ "        %( ccount)s comment\n"
+#~ "        "
+#~ msgid_plural ""
+#~ "\n"
+#~ "        %(ccount)s comments\n"
+#~ "    "
+#~ msgstr[0] ""
+#~ "\n"
+#~ "%(ccount)s comentario"
+#~ msgstr[1] ""
+#~ "\n"
+#~ "%(ccount)s comentarios"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        %( ccount)s comment\n"
+#~ "                        "
+#~ msgid_plural ""
+#~ "\n"
+#~ "                        %(ccount)s comments\n"
+#~ "                    "
+#~ msgstr[0] ""
+#~ "\n"
+#~ "%(ccount)s comentario"
+#~ msgstr[1] ""
+#~ "\n"
+#~ "%(ccount)s comentarios"

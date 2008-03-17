@@ -21,7 +21,7 @@
             {% trans "Tags" %}:
             <ul class="tags">
                 {% for t in entry.tags.all %}
-                    <li><a href="{{ blango_url }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
+                    <li><a href="{{ blango_url }}{{ entry.language.iso639_1 }}/tag/{{ t.slug }}/">{{ t }}</a></li>
                 {% endfor %}
             </ul>
         </div>

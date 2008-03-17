@@ -45,11 +45,10 @@ class Language(models.Model):
 class Tag(models.Model):
     name = models.CharField('Tag name', max_length=32)
     slug = models.SlugField(blank=True)
-    language = models.ForeignKey(Language)
 
     class Admin:
         fields = (
-            (None, {'fields': ('name', 'language')}),
+            (None, {'fields': ('name',)}),
         )
 
     class Meta:
@@ -106,7 +105,8 @@ class Entry(models.Model):
     def save(self):
         if not self.slug:
             self.slug = make_slug(Entry, self.title)
-        self.author = User.objects.get(pk=1)
+        if not self.author:
+            self.author = User.objects.get(pk=1)
         self.body_html = markdown(self.body)
         super(Entry, self).save()
 

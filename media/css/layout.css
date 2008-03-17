@@ -116,7 +116,11 @@ li.entry .ebody {
     font-size: 0.82em;
 }
 .ebody p {
-    text-indent: 2em;
+    text-indent: 1em;
+}
+.ebody ol,
+.ebody ul {
+    margin-left: 3em;
 }
 .meta {
     border-top: 1px dotted #8A98A2;

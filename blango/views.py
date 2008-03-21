@@ -41,13 +41,13 @@ def list_view(request, lang, tag_slug, year, month, page):
         entries = entries.filter(tags=tag)
     if year and month:
         entries = entries.filter(published__year=year, published__month=month)
-    
+
     if lang:
         blango_lang = lang + '/'
     else:
         lang = iso639_1(request.LANGUAGE_CODE)
         blango_lang = ''
-    
+
     language = get_object_or_404(Language, iso639_1=lang)
     entries = entries.filter(language=language)
 
@@ -55,18 +55,18 @@ def list_view(request, lang, tag_slug, year, month, page):
 
     tags = Tag.for_language(language)
     languages = Language.objects.all()
-    
+
     return render_to_response('blango/list.html', locals(),
             context_instance=RequestContext(request))
 
 def entry_view(request, entry_slug):
     entry = get_object_or_404(Entry, slug=entry_slug)
-    
+
     dates = dates_for_language(entry.language)
     tags = Tag.for_language(entry.language)
 
     comment_form = CommentForm()
-    
+
     if request.method == 'POST':
         try:
             comment_form = CommentForm(request.POST)
@@ -74,6 +74,6 @@ def entry_view(request, entry_slug):
             return HttpResponseRedirect(entry.get_absolute_url())
         except ValueError:
             pass
-    
+
     return render_to_response('blango/entry.html', locals(),
             context_instance=RequestContext(request))

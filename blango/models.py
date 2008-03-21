@@ -15,7 +15,7 @@ class short_description(object):
     def __call__(self, func):
         func.short_description = self.desc
         return func
-            
+
 def make_slug(klass, title):
     slug = slugify(title)[:50]
     retval = slug
@@ -41,7 +41,7 @@ class Language(models.Model):
 
     def __unicode__(self):
         return self.name
-    
+
 class Tag(models.Model):
     name = models.CharField('Tag name', max_length=32)
     slug = models.SlugField(blank=True)
@@ -84,7 +84,7 @@ class Entry(models.Model):
     body_html = models.TextField(blank=True)
     published = models.DateTimeField(default=datetime.now())
     translations = models.ManyToManyField('Entry', blank=True)
-     
+
     class Admin:
         fields = (
             (_('Entry'), {'fields': ('title', 'body')}),
@@ -152,7 +152,7 @@ class Comment(models.Model):
     @property
     def title(self):
         return mark_safe(_('Comment by "%s"') % self.author)
-    
+
     @property
     def description(self):
         return self.body

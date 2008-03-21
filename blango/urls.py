@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from blango.feeds import *
 
-feeds = { 
+feeds = {
     'latest': LatestEntries,
     'tag': LatestEntriesByTag,
     'comments': LatestComments,

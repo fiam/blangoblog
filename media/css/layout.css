@@ -87,7 +87,7 @@ ul#entries,
 ul.tags {
     list-style-type: none;
 }
-ul.tags, 
+ul.tags,
 ul.tags li {
     display: inline;
 }

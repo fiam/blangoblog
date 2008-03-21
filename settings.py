@@ -94,4 +94,4 @@ class EXPORTED:
         ('blango_subtitle', u'(rhymes with liam)'),
         ('blango_media', '/site-media/'),
     )
- 
+

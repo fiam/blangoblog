@@ -25,7 +25,7 @@ class LatestEntries(Feed):
 
     def items(self, obj):
         return Entry.objects.filter(language=obj).order_by('-published')[:30]
-        
+
 
 class LatestEntriesByTag(LatestEntries):
     title_template = 'blango/feeds/title.html'
@@ -34,7 +34,7 @@ class LatestEntriesByTag(LatestEntries):
     def get_object(self, bits):
         if len(bits) != 2:
             raise FeedDoesNotExist
-    
+
         return (Tag.objects.get(slug=bits[0]), Language.objects.get(iso639_1=bits[1]))
 
     def title(self, obj):

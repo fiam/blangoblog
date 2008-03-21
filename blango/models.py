@@ -53,7 +53,7 @@ class Tag(models.Model):
 
     class Meta:
         verbose_name = _('tag')
-        verbose_name = _('tags')
+        verbose_name_plural = _('tags')
 
     def save(self):
         if not self.slug:

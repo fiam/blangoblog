@@ -105,7 +105,7 @@ class Entry(models.Model):
     def save(self):
         if not self.slug:
             self.slug = make_slug(Entry, self.title)
-        if not self.author:
+        if not self.author_id:
             self.author = User.objects.get(pk=1)
         self.body_html = markdown(self.body)
         super(Entry, self).save()

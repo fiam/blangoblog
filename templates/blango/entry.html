@@ -44,7 +44,7 @@
 {% trans "for" %} "{{ entry.title }}"
 </h4>
 <ul id="comments">
-    {% for c in entry.comments.all %}
+    {% for c in entry.comments %}
         <li class="comment" id="comment-{{ forloop.counter }}">
             <div class="comment-top">
                 <span class="number">#{{ forloop.counter }}</span>

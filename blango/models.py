@@ -127,8 +127,12 @@ class Entry(models.Model):
     def description(self):
         return mark_safe(self.body)
 
+    @property
+    def comments(self):
+        return self.comment_set.order_by('submitted')
+
 class Comment(models.Model):
-    entry = models.ForeignKey(Entry, related_name='comments')
+    entry = models.ForeignKey(Entry)
     author = models.CharField(_('Name'), max_length=16)
     author_uri = models.CharField(_('Website'), max_length=256)
     author_email = models.EmailField(_('Email'))

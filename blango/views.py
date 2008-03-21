@@ -35,7 +35,7 @@ def dates_for_language(language):
     return [date(row[0], row[1], 1) for row in cursor.fetchall()]
 
 def list_view(request, lang, tag_slug, year, month, page):
-    entries = Entry.objects.filter(draft=False)
+    entries = Entry.objects.filter(draft=False).order_by('-published')
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         entries = entries.filter(tags=tag)

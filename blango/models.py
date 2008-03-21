@@ -83,6 +83,7 @@ class Entry(models.Model):
     tags = models.ManyToManyField(Tag)
     body_html = models.TextField(blank=True)
     published = models.DateTimeField(default=datetime.now())
+    draft = models.BooleanField(_('Save as draft (don\'t publish it yet)'), default=False)
     translations = models.ManyToManyField('Entry', blank=True)
 
     class Admin:
@@ -92,6 +93,7 @@ class Entry(models.Model):
             (_('Language'), {'fields': ('language', )}),
             (_('Date published'), {'fields': ('published', )}),
             (_('Published translations'), { 'fields': ('translations', )}),
+            (_('Save as draft'), { 'fields': ('draft',)}),
         )
         list_display = ('title', 'language', 'formatted_tags', 'published')
 
@@ -108,6 +110,10 @@ class Entry(models.Model):
         if not self.author_id:
             self.author = User.objects.get(pk=1)
         self.body_html = markdown(self.body)
+        if not self.draft:
+            if self.pk and Entry.objects.get(pk=self.pk).draft != self.draft:
+                self.published = datetime.now()
+
         super(Entry, self).save()
 
     def get_absolute_url(self):

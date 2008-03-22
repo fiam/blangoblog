@@ -78,16 +78,16 @@ class Tag(models.Model):
         return Tag.objects.filter(id__in=[t[0] for t in cursor.fetchall()])
 
 class Entry(models.Model):
-    title = models.CharField(max_length=65)
+    title = models.CharField(_('title'), max_length=65)
     slug = models.SlugField(max_length=65, blank=True)
     author = models.ForeignKey(User, blank=True)
-    language = models.ForeignKey(Language, radio_admin=True)
-    body = models.TextField()
-    tags = models.ManyToManyField(Tag)
+    language = models.ForeignKey(Language, radio_admin=True, verbose_name=_('language'))
+    body = models.TextField(_('body'))
+    tags = models.ManyToManyField(Tag, verbose_name=_('tags'), filter_interface=models.HORIZONTAL)
     body_html = models.TextField(blank=True)
-    published = models.DateTimeField(default=datetime.now())
+    published = models.DateTimeField(_('Date published'), default=datetime.now())
     draft = models.BooleanField(_('Save as draft (don\'t publish it yet)'), default=False)
-    translations = models.ManyToManyField('Entry', blank=True)
+    translations = models.ManyToManyField('Entry', blank=True, verbose_name=_('translations'), filter_interface=models.HORIZONTAL)
 
     class Admin:
         fields = (
@@ -95,8 +95,8 @@ class Entry(models.Model):
             (_('Tags'), {'fields': ('tags', )}),
             (_('Language'), {'fields': ('language', )}),
             (_('Date published'), {'fields': ('published', )}),
-            (_('Published translations'), { 'fields': ('translations', )}),
             (_('Save as draft'), { 'fields': ('draft',)}),
+            (_('Published translations'), { 'fields': ('translations', )}),
         )
         list_display = ('title', 'language', 'formatted_tags', 'published')
 

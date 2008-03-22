@@ -109,7 +109,7 @@ class Entry(models.Model):
             self.slug = make_slug(Entry, self.title)
         if not self.author_id:
             self.author = User.objects.get(pk=1)
-        self.body_html = markdown(self.body)
+        self.body_html = unicode(markdown(self.body.encode('utf8')))
         if not self.draft:
             if self.pk and Entry.objects.get(pk=self.pk).draft != self.draft:
                 self.published = datetime.now()

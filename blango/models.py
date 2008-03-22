@@ -16,16 +16,16 @@ class short_description(object):
         func.short_description = self.desc
         return func
 
-def make_slug(klass, title):
-    slug = slugify(title)[:50]
+def make_slug(obj):
+    slug = slugify(obj.slug_generator)[:50]
     retval = slug
     i = 2;
     while True:
         try:
-            klass.objects.get(slug=retval)
+            obj.__class__.objects.exclude(pk=obj.pk).get(slug=retval)
             retval = slug[:49 - len(str(i))] + '-' + str(i)
             i += 1
-        except klass.DoesNotExist:
+        except obj.__class__.DoesNotExist:
             return retval
 
 class Language(models.Model):
@@ -56,8 +56,7 @@ class Tag(models.Model):
         verbose_name_plural = _('tags')
 
     def save(self):
-        if not self.slug:
-            self.slug = make_slug(Tag, self.name)
+        self.slug = make_slug(self)
         super(Tag, self).save()
 
     def get_absolute_url(self):
@@ -65,6 +64,10 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @property
+    def slug_generator(self):
+        return name
 
     @staticmethod
     def for_language(language):
@@ -105,8 +108,7 @@ class Entry(models.Model):
         return self.title
 
     def save(self):
-        if not self.slug:
-            self.slug = make_slug(Entry, self.title)
+        self.slug = make_slug(self)
         if not self.author_id:
             self.author = User.objects.get(pk=1)
         self.body_html = unicode(markdown(self.body.encode('utf8')))
@@ -130,6 +132,10 @@ class Entry(models.Model):
     @property
     def comments(self):
         return self.comment_set.order_by('submitted')
+
+    @property
+    def slug_generator(self):
+        return self.title
 
 class Comment(models.Model):
     entry = models.ForeignKey(Entry)

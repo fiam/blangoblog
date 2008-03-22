@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-22 00:54+0100\n"
+"POT-Creation-Date: 2008-03-22 15:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,72 +43,84 @@ msgstr "lenguajes"
 msgid "tag"
 msgstr "etiqueta"
 
-#: blango/models.py:56 blango/models.py:122
+#: blango/models.py:56 blango/models.py:86 blango/models.py:124
 msgid "tags"
 msgstr "etiquetas"
 
-#: blango/models.py:86
+#: blango/models.py:81
+msgid "title"
+msgstr "título"
+
+#: blango/models.py:85
+msgid "body"
+msgstr "cuerpo"
+
+#: blango/models.py:88 blango/models.py:97
+msgid "Date published"
+msgstr "Fecha de publicación"
+
+#: blango/models.py:89
 msgid "Save as draft (don't publish it yet)"
 msgstr "Guardar como borrador (no publicarlo aún)"
 
-#: blango/models.py:91
+#: blango/models.py:90
+msgid "translations"
+msgstr "traducciones"
+
+#: blango/models.py:94
 msgid "Entry"
 msgstr "Entrada"
 
-#: blango/models.py:92 templates/blango/entry.html:21
+#: blango/models.py:95 templates/blango/entry.html:21
 #: templates/blango/list.html:33 templates/blango/list.html.py:57
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: blango/models.py:93
+#: blango/models.py:96
 msgid "Language"
 msgstr "Lenguaje"
 
-#: blango/models.py:94
-msgid "Date published"
-msgstr "Fecha de publicación"
-
-#: blango/models.py:95
+#: blango/models.py:98
 msgid "Published translations"
 msgstr "Traducciones publicadas"
 
-#: blango/models.py:96
+#: blango/models.py:99
 msgid "Save as draft"
 msgstr "Guardar como borrador"
 
-#: blango/models.py:101
+#: blango/models.py:104
 msgid "entry"
 msgstr "entrada"
 
-#: blango/models.py:102
+#: blango/models.py:105
 msgid "entries"
 msgstr "entradas"
 
-#: blango/models.py:136
+#: blango/models.py:142
 msgid "Name"
 msgstr "Nombre"
 
-#: blango/models.py:137
+#: blango/models.py:143
 msgid "Website"
 msgstr "Página web"
 
-#: blango/models.py:138
+#: blango/models.py:144
 msgid "Email"
 msgstr "Email"
 
-#: blango/models.py:139
+#: blango/models.py:145
 msgid "Comment"
 msgstr "Comentario"
 
-#: blango/models.py:146
+#: blango/models.py:152
 msgid "comment"
 msgstr "comentario"
 
-#: blango/models.py:147
+#: blango/models.py:153
 msgid "comments"
 msgstr "comentarios"
 
-#: blango/models.py:164
+#: blango/models.py:170
 #, python-format
 msgid "Comment by \"%s\""
 msgstr "Comentario de \"%s\""

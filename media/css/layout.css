@@ -110,6 +110,10 @@ li.entry span.time {
     border-bottom: 1px dotted #8A98A2;
     font-size: 80%;
 }
+li.entry span.edit {
+    font-size: 0.7em;
+    font-weight: normal;
+}
 li.entry .ebody {
     margin: 1em 0;
     line-height: 1.5em;

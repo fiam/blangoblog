@@ -12,7 +12,10 @@
 <div id="content-inner">
 <ul id="entries">
     <li class="entry" id="entry-{{ entry.id }}">
-        <h2>{{ entry.title }}</h2>
+        <h2>
+            {{ entry.title }}
+            {% if user.is_staff %}<span class="edit">( <a href={{ blango_url }}admin/blango/entry/{{ e.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
+        </h2>
         <span class="time">{{ entry.published|naturalday }} {% trans "at" %} {{ entry.published|time:"H:i:s" }} {{ entry.published|date:"T" }}</span>
         <div class="ebody">
             {{ entry.body_html|safe }}

@@ -48,7 +48,10 @@
 <ul id="entries">
     {% for e in entries %}
         <li class="entry" id="entry-{{ e.id }}">
-            <h3><a href="{{ e.get_absolute_url }}">{{ e.title }}</a></h3>
+            <h3>
+                <a href="{{ e.get_absolute_url }}">{{ e.title }}</a>
+                {% if user.is_staff %}<span class="edit">( <a href={{ blango_url }}admin/blango/entry/{{ e.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
+            </h3>
             <span class="time">{{ e.published|naturalday }} {% trans "at" %} {{ e.published|time:"H:i:s" }} {{ e.published|date:"T" }}</span>
             <div class="ebody">
                 {{ e.body_html|safe }}

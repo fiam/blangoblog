@@ -117,6 +117,8 @@ li.entry .ebody {
 }
 .ebody p {
     text-indent: 1em;
+    margin: 1em 0;
+    text-align: justify;
 }
 .ebody ol,
 .ebody ul {

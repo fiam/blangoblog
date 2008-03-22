@@ -20,9 +20,10 @@ def make_slug(obj):
     slug = slugify(obj.slug_generator)[:50]
     retval = slug
     i = 2;
+    pk = obj.pk or 0
     while True:
         try:
-            obj.__class__.objects.exclude(pk=obj.pk).get(slug=retval)
+            obj.__class__.objects.exclude(pk=pk).get(slug=retval)
             retval = slug[:49 - len(str(i))] + '-' + str(i)
             i += 1
         except obj.__class__.DoesNotExist:

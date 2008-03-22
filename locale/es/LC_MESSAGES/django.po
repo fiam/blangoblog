@@ -1,16 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Spanish translation for blango.
+# Copyright (C) 2008
+# This file is distributed under the same license as the blango package.
+# Alberto García Hierro <fiam@rm-fr.net>, 2008.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-22 15:18+0100\n"
+"POT-Creation-Date: 2008-03-22 18:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Alberto García Hierro <fiam@rm-fr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,96 +31,96 @@ msgstr "Últimas entradas en %(language)s (%(name)s)"
 msgid "Latest comments for \"%s\""
 msgstr "Últimos comentarios en \"%s\""
 
-#: blango/models.py:39
+#: blango/models.py:40 blango/models.py:85
 msgid "language"
 msgstr "lenguaje"
 
-#: blango/models.py:40
+#: blango/models.py:41
 msgid "languages"
 msgstr "lenguajes"
 
-#: blango/models.py:55
+#: blango/models.py:56
 msgid "tag"
 msgstr "etiqueta"
 
-#: blango/models.py:56 blango/models.py:86 blango/models.py:124
+#: blango/models.py:57 blango/models.py:87 blango/models.py:125
 msgid "tags"
 msgstr "etiquetas"
 
-#: blango/models.py:81
+#: blango/models.py:82
 msgid "title"
 msgstr "título"
 
-#: blango/models.py:85
+#: blango/models.py:86
 msgid "body"
 msgstr "cuerpo"
 
-#: blango/models.py:88 blango/models.py:97
+#: blango/models.py:89 blango/models.py:98
 msgid "Date published"
 msgstr "Fecha de publicación"
 
-#: blango/models.py:89
+#: blango/models.py:90
 msgid "Save as draft (don't publish it yet)"
 msgstr "Guardar como borrador (no publicarlo aún)"
 
-#: blango/models.py:90
+#: blango/models.py:91
 msgid "translations"
 msgstr "traducciones"
 
-#: blango/models.py:94
+#: blango/models.py:95
 msgid "Entry"
 msgstr "Entrada"
 
-#: blango/models.py:95 templates/blango/entry.html:21
-#: templates/blango/list.html:33 templates/blango/list.html.py:57
+#: blango/models.py:96 templates/blango/entry.html:21
+#: templates/blango/list.html:33 templates/blango/list.html.py:60
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: blango/models.py:96
+#: blango/models.py:97
 msgid "Language"
 msgstr "Lenguaje"
-
-#: blango/models.py:98
-msgid "Published translations"
-msgstr "Traducciones publicadas"
 
 #: blango/models.py:99
 msgid "Save as draft"
 msgstr "Guardar como borrador"
 
-#: blango/models.py:104
+#: blango/models.py:100
+msgid "Published translations"
+msgstr "Traducciones publicadas"
+
+#: blango/models.py:105
 msgid "entry"
 msgstr "entrada"
 
-#: blango/models.py:105
+#: blango/models.py:106
 msgid "entries"
 msgstr "entradas"
 
-#: blango/models.py:142
+#: blango/models.py:143
 msgid "Name"
 msgstr "Nombre"
 
-#: blango/models.py:143
+#: blango/models.py:144
 msgid "Website"
 msgstr "Página web"
 
-#: blango/models.py:144
+#: blango/models.py:145
 msgid "Email"
 msgstr "Email"
 
-#: blango/models.py:145
+#: blango/models.py:146
 msgid "Comment"
 msgstr "Comentario"
 
-#: blango/models.py:152
+#: blango/models.py:153
 msgid "comment"
 msgstr "comentario"
 
-#: blango/models.py:153
+#: blango/models.py:154
 msgid "comments"
 msgstr "comentarios"
 
-#: blango/models.py:170
+#: blango/models.py:171
 #, python-format
 msgid "Comment by \"%s\""
 msgstr "Comentario de \"%s\""
@@ -130,7 +130,7 @@ msgid "Latest comments for"
 msgstr "Últimos comentarios en"
 
 #: templates/blango/entry.html:16 templates/blango/entry.html.py:60
-#: templates/blango/list.html:52
+#: templates/blango/list.html:55
 msgid "at"
 msgstr "a las"
 
@@ -138,7 +138,7 @@ msgstr "a las"
 msgid "This entry is also available in the following languages:"
 msgstr "Esta entrada también está disponible en los siguientes lenguajes:"
 
-#: templates/blango/entry.html:43 templates/blango/list.html:64
+#: templates/blango/entry.html:43 templates/blango/list.html:67
 #, python-format
 msgid "%(ccount)s comment"
 msgid_plural "%(ccount)s comments"
@@ -166,38 +166,7 @@ msgstr "Últimas entradas en"
 msgid "Archives"
 msgstr "Archivos"
 
-#, fuzzy
-#~ msgid "%(ccount)s comment"
-#~ msgid_plural "%(ccount)s comments"
-#~ msgstr[0] "%(ccount)s comentario"
-#~ msgstr[1] "%(ccount)s comentarios"
+#: templates/blango/list.html:53
+msgid "Edit"
+msgstr "Editar"
 
-#~ msgid ""
-#~ "\n"
-#~ "        %( ccount)s comment\n"
-#~ "        "
-#~ msgid_plural ""
-#~ "\n"
-#~ "        %(ccount)s comments\n"
-#~ "    "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "%(ccount)s comentario"
-#~ msgstr[1] ""
-#~ "\n"
-#~ "%(ccount)s comentarios"
-
-#~ msgid ""
-#~ "\n"
-#~ "                        %( ccount)s comment\n"
-#~ "                        "
-#~ msgid_plural ""
-#~ "\n"
-#~ "                        %(ccount)s comments\n"
-#~ "                    "
-#~ msgstr[0] ""
-#~ "\n"
-#~ "%(ccount)s comentario"
-#~ msgstr[1] ""
-#~ "\n"
-#~ "%(ccount)s comentarios"

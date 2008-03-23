@@ -46,7 +46,7 @@
 {% block content %}
 <div id="content-inner">
 <ul id="entries">
-    {% for e in entries %}
+    {% for e in page.object_list %}
         <li class="entry" id="entry-{{ e.id }}">
             <h3>
                 <a href="{{ e.get_absolute_url }}">{{ e.title }}</a>
@@ -71,5 +71,8 @@
         </li>
     {% endfor %}
 </ul>
+{% if page.has_other_pages %}
+    {{ page.paginator.page_list.as_ul }}
+{% endif %}
 </div>
 {% endblock %}

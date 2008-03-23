@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.db import connection
+from django.core.paginator import QuerySetPaginator, InvalidPage
 
 try:
     from django import newforms as forms
@@ -36,6 +37,12 @@ def dates_for_language(language):
 
 def list_view(request, lang, tag_slug, year, month, page):
     entries = Entry.objects.filter(draft=False).order_by('-published')
+    base_url = request.path
+
+    if page:
+        base_url = base_url[:-1 * len(page) - 1]
+    base_url += '%d/'
+
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         entries = entries.filter(tags=tag)
@@ -55,6 +62,9 @@ def list_view(request, lang, tag_slug, year, month, page):
 
     tags = Tag.for_language(language)
     languages = Language.objects.all()
+
+    paginator = QuerySetPaginator(entries, 5, base_url=base_url)
+    page = paginator.page_or_404(page or 1)
 
     return render_to_response('blango/list.html', locals(),
             context_instance=RequestContext(request))

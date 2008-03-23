@@ -245,3 +245,49 @@ ul#translations li {
 ul#translations li img {
     border: none;
 }
+ul.pagelist, ul.pagelist ul {
+    list-style-type: none;
+    display: inline;
+    float: left;
+}
+ul.pagelist {
+    font-size: 0.9em;
+}
+ul.pagelist a {
+    display: block;
+    float: left;
+    height: 1.5em;
+    width: 2em;
+    border: 1px solid #00A0E3;
+    text-align: center;
+    margin: 0 0.1em;
+    text-decoration: none;
+}
+ul.pagelist a:hover {
+    border-color: #5C3399;
+}
+ul.pagelist a.curpage,
+ul.pagelist a.curpage:hover {
+    background: #00A0E3;
+    border-color: #00A0E3;
+    color: #FFF;
+
+}
+ul.prev-next a {
+    display: block;
+    width: auto;
+    float: left;
+    padding: 0 0.5em;
+}
+ul.pagelist ul.start {
+    margin-right: 2em;
+}
+ul.pagelist ul.end {
+    margin-left: 2em;
+}
+
+
+ul.pagelist li {
+    display: inline;
+    margin: 0 0.2em;
+}

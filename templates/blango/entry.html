@@ -9,7 +9,6 @@
 {% endblock %}
 {% block subtitle %} &raquo; {{ entry.title }}{% endblock %}
 {% block content %}
-<div id="content-inner">
 <ul id="entries">
     <li class="entry" id="entry-{{ entry.id }}">
         <h2>
@@ -28,7 +27,7 @@
                 {% endfor %}
             </ul>
         </div>
-        {% if entry.translations %}
+        {% if entry.translations.all %}
             {% trans "This entry is also available in the following languages:" %}
             <ul id="translations">
             {% for t in entry.translations.all %}
@@ -47,6 +46,7 @@
 {% trans "for" %} "{{ entry.title }}"
 </h4>
 <ul id="comments">
+    <li style="display: none"></li>
     {% for c in entry.comments %}
         <li class="comment" id="comment-{{ forloop.counter }}">
             <div class="comment-top">
@@ -74,9 +74,8 @@
         </li>
     {% endfor %}
 </ul>
-<form class="commentform" method="post" action="{{ entry.get_absolute_url }}" />
+<form class="commentform" method="post" action="{{ entry.get_absolute_url }}">
     {{ comment_form.as_p }}
     <input type="submit" value="{% trans "Submit" %}" />
 </form>
-</div>
 {% endblock %}

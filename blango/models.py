@@ -1,11 +1,12 @@
 from django.db import models, connection
 from django.contrib.auth.models import User
-from django.contrib.markup.templatetags.markup import markdown
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 from settings import BLANGO_URL
+
+from markdown import markdown
 
 from datetime import datetime
 
@@ -112,7 +113,7 @@ class Entry(models.Model):
         self.slug = make_slug(self)
         if not self.author_id:
             self.author = User.objects.get(pk=1)
-        self.body_html = unicode(markdown(self.body.encode('utf8')))
+        self.body_html = markdown(self.body, ['codehilite'])
         if not self.draft:
             if self.pk and Entry.objects.get(pk=self.pk).draft != self.draft:
                 self.published = datetime.now()

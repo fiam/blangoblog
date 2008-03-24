@@ -68,7 +68,7 @@ class Tag(models.Model):
 
     @property
     def slug_generator(self):
-        return name
+        return self.name
 
     @staticmethod
     def for_language(language):

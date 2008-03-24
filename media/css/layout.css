@@ -271,7 +271,6 @@ ul.pagelist a.curpage:hover {
     background: #00A0E3;
     border-color: #00A0E3;
     color: #FFF;
-
 }
 ul.prev-next a {
     display: block;
@@ -285,8 +284,6 @@ ul.pagelist ul.start {
 ul.pagelist ul.end {
     margin-left: 2em;
 }
-
-
 ul.pagelist li {
     display: inline;
     margin: 0 0.2em;

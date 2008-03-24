@@ -38,7 +38,7 @@ class LatestEntriesByTag(LatestEntries):
         return (Tag.objects.get(slug=bits[0]), Language.objects.get(iso639_1=bits[1]))
 
     def title(self, obj):
-        return _('Latest entries in %(language)s (%(name)s)') % { 'langugage': obj[0].name, 'name': obj[1].name }
+        return _('Latest entries in %(language)s (%(name)s)') % { 'language': obj[0].name, 'name': obj[1].name }
 
     def link(self, obj):
         return '%s/%s/' % (obj[0].get_absolute_url(), obj[1].iso639_1)

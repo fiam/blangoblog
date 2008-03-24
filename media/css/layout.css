@@ -128,6 +128,11 @@ li.entry .ebody {
 .ebody ul {
     margin-left: 3em;
 }
+.ebody pre {
+    margin-left: 3em;
+    padding: 1em;
+    background: #FFFEEE;
+}
 .meta {
     border-top: 1px dotted #8A98A2;
     margin-bottom: 2em;

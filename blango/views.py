@@ -41,7 +41,6 @@ def list_view(request, lang, tag_slug, year, month, page):
 
     if page:
         base_url = base_url[:-1 * len(page) - 1]
-    base_url += '%d/'
 
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
@@ -63,7 +62,7 @@ def list_view(request, lang, tag_slug, year, month, page):
     tags = Tag.for_language(language)
     languages = Language.objects.all()
 
-    paginator = QuerySetPaginator(entries, 5, base_url=base_url)
+    paginator = QuerySetPaginator(entries, 5, base_url=base_url, page_suffix='%d/')
     page = paginator.page_or_404(page or 1)
 
     return render_to_response('blango/list.html', locals(),

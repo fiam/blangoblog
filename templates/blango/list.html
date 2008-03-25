@@ -18,6 +18,17 @@
     {% endif %}
     {% endblock %}
 </div>
+{% if user.is_staff %}
+    <div class="navbox">
+        <h3>{% trans "Admin" %}</h3>
+        <div class="navbox-body">
+            <ul>
+                <li>&raquo; <a href="{{ blango_url }}admin/">{% trans "Admin" %}</a></li>
+                <li>&raquo; <a href="{{ blango_url }}admin/blango/entry/add/">{% trans "Add entry" %}</a></li>
+            </ul>
+        </div>
+    </div>
+{% endif %}
 <div class="navbox">
     <h3>{% trans "Archives" %}</h3>
     <div class="navbox-body">

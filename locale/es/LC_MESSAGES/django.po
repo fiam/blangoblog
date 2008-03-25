@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-25 09:56+0100\n"
+"POT-Creation-Date: 2008-03-25 16:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alberto García Hierro <fiam@rm-fr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,7 +72,7 @@ msgid "Entry"
 msgstr "Entrada"
 
 #: blango/models.py:99 templates/blango/entry.html:26
-#: templates/blango/list.html:33 templates/blango/list.html.py:59
+#: templates/blango/list.html:44 templates/blango/list.html.py:70
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -141,12 +141,12 @@ msgstr "Comentario de \"%s\""
 msgid "Latest comments for"
 msgstr "Últimos comentarios en"
 
-#: templates/blango/entry.html:19 templates/blango/list.html:52
+#: templates/blango/entry.html:19 templates/blango/list.html:63
 msgid "Edit"
 msgstr "Editar"
 
 #: templates/blango/entry.html:21 templates/blango/entry.html.py:79
-#: templates/blango/list.html:54
+#: templates/blango/list.html:65
 msgid "at"
 msgstr "a las"
 
@@ -154,7 +154,7 @@ msgstr "a las"
 msgid "This entry is also available in the following languages:"
 msgstr "Esta entrada también está disponible en los siguientes lenguajes:"
 
-#: templates/blango/entry.html:60 templates/blango/list.html:66
+#: templates/blango/entry.html:60 templates/blango/list.html:77
 #, python-format
 msgid "%(ccount)s comment"
 msgid_plural "%(ccount)s comments"
@@ -182,6 +182,14 @@ msgstr "Enviar"
 msgid "Latest entries in"
 msgstr "Últimas entradas en"
 
-#: templates/blango/list.html:22
+#: templates/blango/list.html:23 templates/blango/list.html.py:26
+msgid "Admin"
+msgstr "Administración"
+
+#: templates/blango/list.html:27
+msgid "Add entry"
+msgstr "Añadir entrada"
+
+#: templates/blango/list.html:33
 msgid "Archives"
 msgstr "Archivos"

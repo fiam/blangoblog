@@ -102,6 +102,9 @@ li.entry h3 a {
 li.entry h3 a:hover {
     color: #C60;
 }
+li.entry h4 {
+    font-size: 1.1em;
+}
 li.entry span.time {
     display: block;
     color: #8A98A2;

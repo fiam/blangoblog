@@ -150,7 +150,7 @@ class Entry(models.Model):
 
     @property
     def description(self):
-        return mark_safe(self.body)
+        return mark_safe(self.body_html)
 
     @property
     def comments(self):

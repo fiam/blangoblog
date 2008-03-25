@@ -123,6 +123,9 @@ class Entry(models.Model):
     def get_absolute_url(self):
         return BLANGO_URL + 'entry/%s/' % self.slug
 
+    def get_trackback_url(self):
+        return BLANGO_URL + 'trackback/%d/' % self.pk
+
     @short_description(_('tags'))
     def formatted_tags(self):
         return u', '.join(t.__unicode__() for t in self.tags.all())
@@ -140,12 +143,18 @@ class Entry(models.Model):
         return self.title
 
 class Comment(models.Model):
+    COMMENT_TYPES = [
+        ('C', _('comment')),
+        ('T', _('trackback')),
+        ('P', _('pingback')),
+    ]
     entry = models.ForeignKey(Entry)
     author = models.CharField(_('Name'), max_length=16)
     author_uri = models.CharField(_('Website'), max_length=256)
     author_email = models.EmailField(_('Email'))
     body = models.TextField(_('Comment'), max_length=500)
     submitted = models.DateTimeField(default=datetime.now())
+    type = models.CharField(_('Comment type'), max_length=1, choices=COMMENT_TYPES, default='C')
 
     class Admin:
         list_display = ('entry', 'formatted_author', 'body', 'submitted')

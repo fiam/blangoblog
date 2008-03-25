@@ -85,7 +85,7 @@ INSTALLED_APPS = (
     'blog.blango',
 )
 
-BLANGO_URL = '/'
+BLANGO_URL = 'http://django:8000/'
 BLANGO_TITLE = u'fíam'
 class EXPORTED:
     fields = (

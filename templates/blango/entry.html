@@ -1,6 +1,9 @@
 {% extends "blango/list.html" %}
 {% load i18n %}
 {% load humanize %}
+{% block pingback %}
+<link rel="pingback" href="{{ entry.get_absolute_url }}" />
+{% endblock %}
 {% block rss %}
 <link rel="alternate" type="application/rss+xml" title="{% trans "Latest comments for" %} {{ entry.title }}" href="{{ blango_url }}feeds/comments/{{ entry.slug }}/"/>
 {% endblock %}
@@ -39,6 +42,18 @@
             {% endfor %}
             </ul>
         {% endif %}
+        <!--
+            <rdf:RDF
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:tb="http://madskills.com/public/xml/rss/module/trackback/"
+                xmlns:dc="http://purl.org/dc/elements/1.1/">
+                <rdf:Description
+                    rdf:about="{{ entry.get_absolute_url }}"
+                    dc:identifier="{{ entry.get_absolute_url }}"
+                    dc:title="{{ entry.title }}"
+                    trackback:ping="{{ entry.get_trackback_url }}" />
+            </rdf:RDF>
+        -->
     </li>
 </ul>
 <h4>
@@ -52,6 +67,7 @@
             <div class="comment-top">
                 <span class="number">#{{ forloop.counter }}</span>
                 <span class="author">
+                    {{ c.get_type_display|capfirst }} {% trans "by" %}
                     {% if c.author_uri %}
                         <a rel="external nofollow" href="{{ c.author_uri }}">{{ c.author }}</a>
                     {% else %}
@@ -68,9 +84,11 @@
                     ( <a href="#comment-{{ forloop.counter }}">{% trans "Permalink" %}</a> )
                 </span>
             </div>
-            <div class="comment-body">
-                {{ c.body }}
-            </div>
+            {% if c.body %}
+                <div class="comment-body">
+                    {{ c.body }}
+                </div>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>

@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load humanize %}
 {% block pingback %}
-<link rel="pingback" href="{{ entry.get_absolute_url }}" />
+<link rel="pingback" href="{{ blango_url }}xmlrpc/" />
 {% endblock %}
 {% block rss %}
 <link rel="alternate" type="application/rss+xml" title="{% trans "Latest comments for" %} {{ entry.title }}" href="{{ blango_url }}feeds/comments/{{ entry.slug }}/"/>

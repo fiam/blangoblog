@@ -4,11 +4,13 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
-from settings import BLANGO_URL
+from settings import BLANGO_URL, BLANGO_TITLE
+from blango.spider import Spider
 
 from markdown import markdown
 
 from datetime import datetime
+import re
 
 class short_description(object):
     def __init__(self, desc):
@@ -109,16 +111,32 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
 
+    def ping(self):
+        r = re.compile('<a.*?href=["\'](.*?)["\'].*?>', re.I | re.S)
+        for anchor in r.finditer(self.body_html):
+            if anchor.find(BLANGO_URL) == 0:
+                continue
+            s = Spider(anchor.group(1))
+            if not s.trackback(title=self.title,
+                    url=self.get_absolute_url(),
+                    excerpt=self.body_html,
+                    page_name=BLANGO_TITLE):
+                s.pingback(self.get_absolute_url())
+
     def save(self):
         self.slug = make_slug(self)
         if not self.author_id:
             self.author = User.objects.get(pk=1)
         self.body_html = markdown(self.body, ['codehilite'])
+        published_now = self.pk is None and not self.draft
         if not self.draft:
             if self.pk and Entry.objects.get(pk=self.pk).draft != self.draft:
                 self.published = datetime.now()
+                published_now = True
 
         super(Entry, self).save()
+        if published_now:
+            self.ping()
 
     def get_absolute_url(self):
         return BLANGO_URL + 'entry/%s/' % self.slug

@@ -9,45 +9,16 @@ from blango.spider import Spider, hostname_from_uri, is_absolute_link
 
 from xml.etree import cElementTree
 
-try:
-    from django import newforms as forms
-except ImportError:
-    from django import forms
 
 from datetime import date
 
 from settings import LANGUAGE_CODE
 
 from blango.models import *
+from blango.forms import *
 
 def iso639_1(val):
     return val.split('-')[0]
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ('author', 'author_uri', 'author_email', 'body')
-
-    def save(self, entry):
-        self.instance.entry = entry
-        super(CommentForm, self).save()
-
-    def clean_author(self):
-        author = self.cleaned_data['author']
-        try:
-            User.objects.get(username=author)
-            raise forms.ValidationError(_('This username belongs to a registered user'))
-        except User.DoesNotExist:
-            return author
-
-class UserCommentForm(CommentForm):
-    class Meta:
-        model = Comment
-        fields = ('body', )
-
-    def save(self, entry, request):
-        self.instance.user = request.user
-        super(UserCommentForm, self).save(entry)
 
 def dates_for_language(language):
     cursor = connection.cursor()

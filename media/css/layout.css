@@ -313,6 +313,9 @@ ul.pagelist li {
     display: inline;
     margin: 0 0.2em;
 }
+span.small {
+    font-size: 0.8em;
+}
 .codehilite .c { color: #408080; font-style: italic } /* Comment */
 .codehilite .err { border: 1px solid #FF0000 } /* Error */
 .codehilite .k { color: #008000; font-weight: bold } /* Keyword */

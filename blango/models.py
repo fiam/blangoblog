@@ -168,10 +168,10 @@ class Comment(models.Model):
         ('P', _('pingback')),
     ]
     entry = models.ForeignKey(Entry)
-    author = models.CharField(_('Name'), max_length=16)
-    author_uri = models.CharField(_('Website'), max_length=256)
-    author_email = models.EmailField(_('Email'))
-    body = models.TextField(_('Comment'), max_length=500)
+    author = models.CharField(_('Name'), max_length=16, blank=True)
+    author_uri = models.CharField(_('Website'), max_length=256, blank=True)
+    author_email = models.EmailField(_('Email'), blank=True)
+    body = models.TextField(_('Comment'), max_length=1000)
     submitted = models.DateTimeField(default=datetime.now())
     type = models.CharField(_('Comment type'), max_length=1, choices=COMMENT_TYPES, default='C')
     user = models.ForeignKey(User, default=None, null=True, blank=True)
@@ -184,7 +184,8 @@ class Comment(models.Model):
         verbose_name_plural = _('comments')
 
     def save(self):
-        if not self.author_uri.startswith('http://') and \
+        if self.author_uri and \
+                not self.author_uri.startswith('http://') and \
                 not self.author_uri.startswith('https://'):
             self.author_uri = 'http://%s' % self.author_uri
         super(Comment, self).save()

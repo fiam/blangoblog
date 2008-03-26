@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.db import connection
 from django.core.paginator import QuerySetPaginator, InvalidPage
+from django.utils.translation import ugettext as _
 
 from blango.spider import Spider, hostname_from_uri, is_absolute_link
 
@@ -30,6 +31,14 @@ class CommentForm(forms.ModelForm):
     def save(self, entry):
         self.instance.entry = entry
         super(CommentForm, self).save()
+
+    def clean_author(self):
+        author = self.cleaned_data['author']
+        try:
+            User.objects.get(username=author)
+            raise forms.ValidationError(_('This username belongs to a registered user'))
+        except User.DoesNotExist:
+            return author
 
 class UserCommentForm(CommentForm):
     class Meta:

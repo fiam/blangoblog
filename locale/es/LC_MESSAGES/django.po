@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-26 09:27+0100\n"
+"POT-Creation-Date: 2008-03-26 19:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alberto García Hierro <fiam@rm-fr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,26 @@ msgstr "Últimas entradas en %(language)s (%(name)s)"
 msgid "Latest comments for \"%s\""
 msgstr "Últimos comentarios en \"%s\""
 
+#: blango/forms.py:17 blango/models.py:171
+msgid "Name"
+msgstr "Nombre"
+
+#: blango/forms.py:18 blango/models.py:172
+msgid "Website"
+msgstr "Página web"
+
+#: blango/forms.py:19 blango/models.py:173
+msgid "Email"
+msgstr "Email"
+
+#: blango/forms.py:19
+msgid "(Won't be published)"
+msgstr "(No será publicado)"
+
+#: blango/forms.py:33
+msgid "This username belongs to a registered user"
+msgstr "Este nombre pertenece a un usuario registrado"
+
 #: blango/models.py:43 blango/models.py:88
 msgid "language"
 msgstr "lenguaje"
@@ -43,7 +63,7 @@ msgstr "lenguajes"
 msgid "tag"
 msgstr "etiqueta"
 
-#: blango/models.py:60 blango/models.py:90 blango/models.py:147
+#: blango/models.py:60 blango/models.py:90 blango/models.py:148
 msgid "tags"
 msgstr "etiquetas"
 
@@ -96,49 +116,33 @@ msgstr "entrada"
 msgid "entries"
 msgstr "entradas"
 
-#: blango/models.py:165 blango/models.py:182
+#: blango/models.py:166 blango/models.py:183
 msgid "comment"
 msgstr "comentario"
 
-#: blango/models.py:166
+#: blango/models.py:167
 msgid "trackback"
 msgstr "trackback"
 
-#: blango/models.py:167
+#: blango/models.py:168
 msgid "pingback"
 msgstr "pingback"
 
-#: blango/models.py:170
-msgid "Name"
-msgstr "Nombre"
-
-#: blango/models.py:171
-msgid "Website"
-msgstr "Página web"
-
-#: blango/models.py:172
-msgid "Email"
-msgstr "Email"
-
-#: blango/models.py:173
+#: blango/models.py:174
 msgid "Comment"
 msgstr "Comentario"
 
-#: blango/models.py:175
+#: blango/models.py:176
 msgid "Comment type"
 msgstr "Tipo de comentario"
 
-#: blango/models.py:183
+#: blango/models.py:184
 msgid "comments"
 msgstr "comentarios"
 
-#: blango/models.py:220 blango/models.py:225
+#: blango/models.py:222 blango/models.py:227
 msgid "by"
 msgstr "de"
-
-#: blango/views.py:39
-msgid "This username belongs to a registered user"
-msgstr "Este nombre pertenece a un usuario registrado"
 
 #: templates/blango/entry.html:8 templates/blango/entry.html.py:11
 msgid "Latest comments for"

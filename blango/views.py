@@ -31,6 +31,15 @@ class CommentForm(forms.ModelForm):
         self.instance.entry = entry
         super(CommentForm, self).save()
 
+class UserCommentForm(CommentForm):
+    class Meta:
+        model = Comment
+        fields = ('body', )
+
+    def save(self, entry, request):
+        self.instance.user = request.user
+        super(UserCommentForm, self).save(entry)
+
 def dates_for_language(language):
     cursor = connection.cursor()
     cursor.execute('''SELECT DISTINCT YEAR(published),MONTH(published) FROM
@@ -78,12 +87,19 @@ def entry_view(request, entry_slug):
     dates = dates_for_language(entry.language)
     tags = Tag.for_language(entry.language)
 
-    comment_form = CommentForm()
+    if request.user.is_authenticated():
+        comment_form = UserCommentForm()
+    else:
+        comment_form = CommentForm()
 
     if request.method == 'POST':
         try:
-            comment_form = CommentForm(request.POST)
-            comment_form.save(entry)
+            if request.user.is_authenticated():
+                comment_form = UserCommentForm(request.POST)
+                comment_form.save(entry, request)
+            else:
+                comment_form = CommentForm(request.POST)
+                comment_form.save(entry)
             return HttpResponseRedirect(entry.get_absolute_url())
         except ValueError:
             pass

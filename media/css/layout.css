@@ -215,6 +215,12 @@ form.commentform textarea {
     -webkit-border-radius: 10px;
     margin-bottom: 2em;
 }
+#comments li.even {
+    background: #E6E2CF;
+}
+#comments li.staff {
+    background: #D0D6BE;
+}
 #comments li .comment-top {
     padding: 0.5em;
     text-indent: 2em;
@@ -231,6 +237,9 @@ form.commentform textarea {
     float: right;
     font-size: 1.5em;
     color: #AAA;
+}
+#comments li.staff .comment-top .number {
+    color: #FFF;
 }
 #comments li .comment-top .author {
     display: block;

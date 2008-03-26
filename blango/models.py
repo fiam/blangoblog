@@ -1,7 +1,7 @@
 from django.db import models, connection
 from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import slugify, capfirst, force_escape
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 from settings import BLANGO_URL, BLANGO_TITLE
@@ -173,6 +173,7 @@ class Comment(models.Model):
     body = models.TextField(_('Comment'), max_length=500)
     submitted = models.DateTimeField(default=datetime.now())
     type = models.CharField(_('Comment type'), max_length=1, choices=COMMENT_TYPES, default='C')
+    user = models.ForeignKey(User, default=None, null=True, blank=True)
 
     class Admin:
         list_display = ('entry', 'formatted_author', 'body', 'submitted')
@@ -182,8 +183,8 @@ class Comment(models.Model):
         verbose_name_plural = _('comments')
 
     def save(self):
-        if self.author_uri[:7] != 'http://' and \
-                self.author_uri[:8] != 'https://':
+        if not self.author_uri.startswith('http://') and \
+                not self.author_uri.startswith('https://'):
             self.author_uri = 'http://%s' % self.author_uri
         super(Comment, self).save()
 
@@ -195,8 +196,33 @@ class Comment(models.Model):
         return self.body
 
     @property
+    def author_name(self):
+        if self.user is not None:
+            return self.user.username
+        
+        return self.author
+
+    @property
+    def author_link(self):
+        if self.user is not None:
+            return mark_safe('<a href="%s">%s</a>' % \
+                    (BLANGO_URL, self.author_name))
+
+        if self.author_uri:
+            return mark_safe('<a rel="external nofollow" href="%s">%s</a>' % \
+                    (self.author_uri, force_escape(self.author_name)))
+
+        return mark_safe(force_escape(self.author))
+    
+    @property
+    def web_title(self):
+        return mark_safe('%s %s %s' % \
+            (capfirst(ugettext(self.get_type_display())), ugettext('by'), self.author_link))
+
+    @property
     def title(self):
-        return mark_safe(_('Comment by "%s"') % self.author)
+        return mark_safe('%s %s %s' % \
+            (capfirst(ugettext(self.get_type_display())), ugettext('by'), self.author_name))
 
     @property
     def description(self):
@@ -204,4 +230,6 @@ class Comment(models.Model):
 
     @short_description('author')
     def formatted_author(self):
+        if self.user is not None:
+            return ('%s <%s>' % (self.user.username, self.user.email))
         return ('%s <%s>' % (self.author, self.author_email))

@@ -63,16 +63,11 @@
 <ul id="comments">
     <li style="display: none"></li>
     {% for c in entry.comments %}
-        <li class="comment" id="comment-{{ forloop.counter }}">
+        <li class="comment {% cycle 'odd' 'even' %}{% if c.user %} staff{% endif %}" id="comment-{{ forloop.counter }}">
             <div class="comment-top">
                 <span class="number">#{{ forloop.counter }}</span>
                 <span class="author">
-                    {{ c.get_type_display|capfirst }} {% trans "by" %}
-                    {% if c.author_uri %}
-                        <a rel="external nofollow" href="{{ c.author_uri }}">{{ c.author }}</a>
-                    {% else %}
-                        {{ c.author }}
-                    {% endif %}
+                    {{ c.web_title }}
                 </span>
                 <span class="time">
                     {{ c.submitted|naturalday }}

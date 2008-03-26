@@ -13,7 +13,7 @@ from xmlrpclib import ServerProxy, Error
 import sys
 
 def is_absolute_link(link):
-    return link[:7] == 'http://' or link[:8] == 'https://'
+    return link.startswith('http://') or link.startswith('https://')
 
 def hostname_from_uri(uri, http=True):
     if not is_absolute_link(uri):

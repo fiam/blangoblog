@@ -24,7 +24,7 @@ class LatestEntries(Feed):
         return BLANGO_URL + obj.iso639_1 + '/'
 
     def items(self, obj):
-        return Entry.objects.filter(language=obj).order_by('-published')[:30]
+        return Entry.objects.filter(draft=False, language=obj).order_by('-published')[:30]
 
 
 class LatestEntriesByTag(LatestEntries):
@@ -44,7 +44,7 @@ class LatestEntriesByTag(LatestEntries):
         return '%s/%s/' % (obj[0].get_absolute_url(), obj[1].iso639_1)
 
     def items(self, obj):
-        return Entry.objects.filter(language=obj[1], tags=obj[0]).order_by('-published')[:30]
+        return Entry.objects.filter(draft=False, language=obj[1], tags=obj[0]).order_by('-published')[:30]
 
 class LatestComments(Feed):
     title_template = 'blango/feeds/title.html'
@@ -54,7 +54,7 @@ class LatestComments(Feed):
         if len(bits) != 1:
             raise FeedDoesNotExist
 
-        return Entry.objects.get(slug=bits[0])
+        return Entry.objects.get(draft=False, slug=bits[0])
 
     def title(self, obj):
         return _('Latest comments for "%s"') % obj.title

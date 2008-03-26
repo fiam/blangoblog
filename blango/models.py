@@ -114,9 +114,10 @@ class Entry(models.Model):
     def ping(self):
         r = re.compile('<a.*?href=["\'](.*?)["\'].*?>', re.I | re.S)
         for anchor in r.finditer(self.body_html):
-            if anchor.find(BLANGO_URL) == 0:
+            link = anchor.group(1)
+            if link.startswith(BLANGO_URL):
                 continue
-            s = Spider(anchor.group(1))
+            s = Spider(link)
             if not s.trackback(title=self.title,
                     url=self.get_absolute_url(),
                     excerpt=self.body_html,
@@ -128,9 +129,9 @@ class Entry(models.Model):
         if not self.author_id:
             self.author = User.objects.get(pk=1)
         self.body_html = markdown(self.body, ['codehilite'])
-        published_now = self.pk is None and not self.draft
+        published_now = False
         if not self.draft:
-            if self.pk and Entry.objects.get(pk=self.pk).draft != self.draft:
+            if not self.pk or Entry.objects.get(pk=self.pk).draft != self.draft:
                 self.published = datetime.now()
                 published_now = True
 

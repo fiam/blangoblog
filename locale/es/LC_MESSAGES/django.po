@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-25 16:34+0100\n"
+"POT-Creation-Date: 2008-03-26 09:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alberto García Hierro <fiam@rm-fr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,7 +96,7 @@ msgstr "entrada"
 msgid "entries"
 msgstr "entradas"
 
-#: blango/models.py:165 blango/models.py:181
+#: blango/models.py:165 blango/models.py:182
 msgid "comment"
 msgstr "comentario"
 
@@ -128,14 +128,17 @@ msgstr "Comentario"
 msgid "Comment type"
 msgstr "Tipo de comentario"
 
-#: blango/models.py:182
+#: blango/models.py:183
 msgid "comments"
 msgstr "comentarios"
 
-#: blango/models.py:199
-#, python-format
-msgid "Comment by \"%s\""
-msgstr "Comentario de \"%s\""
+#: blango/models.py:220 blango/models.py:225
+msgid "by"
+msgstr "de"
+
+#: blango/views.py:39
+msgid "This username belongs to a registered user"
+msgstr "Este nombre pertenece a un usuario registrado"
 
 #: templates/blango/entry.html:8 templates/blango/entry.html.py:11
 msgid "Latest comments for"
@@ -145,7 +148,7 @@ msgstr "Últimos comentarios en"
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/blango/entry.html:21 templates/blango/entry.html.py:79
+#: templates/blango/entry.html:21 templates/blango/entry.html.py:74
 #: templates/blango/list.html:65
 msgid "at"
 msgstr "a las"
@@ -165,15 +168,11 @@ msgstr[1] "%(ccount)s comentarios"
 msgid "for"
 msgstr "para"
 
-#: templates/blango/entry.html:70
-msgid "by"
-msgstr "de"
-
-#: templates/blango/entry.html:84
+#: templates/blango/entry.html:79
 msgid "Permalink"
 msgstr "Enlace permanente"
 
-#: templates/blango/entry.html:97
+#: templates/blango/entry.html:92
 msgid "Submit"
 msgstr "Enviar"
 
@@ -193,3 +192,6 @@ msgstr "Añadir entrada"
 #: templates/blango/list.html:33
 msgid "Archives"
 msgstr "Archivos"
+
+#~ msgid "Comment by \"%s\""
+#~ msgstr "Comentario de \"%s\""

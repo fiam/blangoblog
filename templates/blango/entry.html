@@ -72,8 +72,8 @@
                 <span class="time">
                     {{ c.submitted|naturalday }}
                     {% trans "at" %}
-                    {{ entry.published|time:"H:i:s" }}
-                    {{ entry.published|date:"T" }}
+                    {{ c.published|time:"H:i:s" }}
+                    {{ c.published|date:"T" }}
                 </span>
                 <span class="permalink">
                     ( <a href="#comment-{{ forloop.counter }}">{% trans "Permalink" %}</a> )

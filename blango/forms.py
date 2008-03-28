@@ -41,5 +41,6 @@ class UserCommentForm(forms.ModelForm):
 
     def save(self, entry, request):
         self.instance.user = request.user
+        self.instance.entry = entry
         super(UserCommentForm, self).save(entry)
 

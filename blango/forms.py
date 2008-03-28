@@ -34,7 +34,7 @@ class CommentForm(forms.ModelForm):
         except User.DoesNotExist:
             return author
 
-class UserCommentForm(CommentForm):
+class UserCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('body', )

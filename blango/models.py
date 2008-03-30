@@ -89,7 +89,7 @@ class Entry(models.Model):
     body = models.TextField(_('body'))
     tags = models.ManyToManyField(Tag, verbose_name=_('tags'), filter_interface=models.HORIZONTAL)
     body_html = models.TextField(blank=True)
-    published = models.DateTimeField(_('Date published'), default=datetime.now())
+    published = models.DateTimeField(_('Publication date'), default=datetime.now())
     draft = models.BooleanField(_('Save as draft (don\'t publish it yet)'), default=False)
     translations = models.ManyToManyField('Entry', blank=True, verbose_name=_('translations'), filter_interface=models.HORIZONTAL)
 

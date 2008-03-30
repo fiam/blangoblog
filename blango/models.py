@@ -172,7 +172,7 @@ class Comment(models.Model):
     author_uri = models.CharField(_('Website'), max_length=256, blank=True)
     author_email = models.EmailField(_('Email'), blank=True)
     body = models.TextField(_('Comment'), max_length=1000)
-    submitted = models.DateTimeField(default=datetime.now())
+    submitted = models.DateTimeField(blank=True)
     type = models.CharField(_('Comment type'), max_length=1, choices=COMMENT_TYPES, default='C')
     user = models.ForeignKey(User, default=None, null=True, blank=True)
 
@@ -184,6 +184,9 @@ class Comment(models.Model):
         verbose_name_plural = _('comments')
 
     def save(self):
+        if self.pk is None or not self.submitted:
+            self.submitted = datetime.now()
+
         if self.author_uri and \
                 not self.author_uri.startswith('http://') and \
                 not self.author_uri.startswith('https://'):

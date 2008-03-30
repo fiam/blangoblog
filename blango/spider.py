@@ -52,6 +52,8 @@ class BaseSpider(object):
             self.uri = uri
         else:
             self.uri = 'http://%s' % uri
+        if self.uri.find('#'):
+            self.uri = self.uri[:self.uri.find('#')]
         self.request = urllib2.Request(self.uri)
         self.request.add_header('User-Agent', 'Blango/0.1 +http://blango.net')
         self.request.add_header('Accept-encoding', 'gzip')

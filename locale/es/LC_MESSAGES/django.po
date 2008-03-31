@@ -8,13 +8,40 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-26 19:07+0100\n"
+"POT-Creation-Date: 2008-03-31 01:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alberto García Hierro <fiam@rm-fr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: blango/email.py:18
+#, python-format
+msgid "New comment on %s"
+msgstr "Nuevo comentario en %s"
+
+#: blango/email.py:21
+#, python-format
+msgid ""
+"\n"
+"        A new comment has been posted in %(entry)s. You can read it at %(uri)"
+"s\n"
+"\n"
+"        \n"
+"        You're receiving this email because you subscribed to \"%(entry)s\"\n"
+"        in %(blog_title)s. If you no longer want to received any followups\n"
+"        just visit %(unsubscribe)s\n"
+"        "
+msgstr ""
+"\n"
+"Se ha añadido un nuevo comentario en %(entry)s. Puedes leerlo en %(uri)s"
+"\n"
+"\n"
+"       Estás recibiendo este correo porque te suscribiste a \"%(entry)s\"\n"
+"       en %(blog_title)s. Si no deseas seguir recibiendo estos avisos,\n"
+"       visita %(unsubscribe)s\n"
+"       "
 
 #: blango/feeds.py:21
 #, python-format
@@ -31,15 +58,15 @@ msgstr "Últimas entradas en %(language)s (%(name)s)"
 msgid "Latest comments for \"%s\""
 msgstr "Últimos comentarios en \"%s\""
 
-#: blango/forms.py:17 blango/models.py:171
+#: blango/forms.py:17 blango/models.py:172
 msgid "Name"
 msgstr "Nombre"
 
-#: blango/forms.py:18 blango/models.py:172
+#: blango/forms.py:18 blango/models.py:173
 msgid "Website"
 msgstr "Página web"
 
-#: blango/forms.py:19 blango/models.py:173
+#: blango/forms.py:19 blango/models.py:174
 msgid "Email"
 msgstr "Email"
 
@@ -47,100 +74,108 @@ msgstr "Email"
 msgid "(Won't be published)"
 msgstr "(No será publicado)"
 
-#: blango/forms.py:33
+#: blango/forms.py:20 blango/models.py:179
+msgid "Notify me of followup comments via e-mail"
+msgstr ""
+
+#: blango/forms.py:34
 msgid "This username belongs to a registered user"
 msgstr "Este nombre pertenece a un usuario registrado"
 
-#: blango/models.py:43 blango/models.py:88
+#: blango/models.py:44 blango/models.py:89
 msgid "language"
 msgstr "lenguaje"
 
-#: blango/models.py:44
+#: blango/models.py:45
 msgid "languages"
 msgstr "lenguajes"
 
-#: blango/models.py:59
+#: blango/models.py:60
 msgid "tag"
 msgstr "etiqueta"
 
-#: blango/models.py:60 blango/models.py:90 blango/models.py:148
+#: blango/models.py:61 blango/models.py:91 blango/models.py:149
 msgid "tags"
 msgstr "etiquetas"
 
-#: blango/models.py:85
+#: blango/models.py:86
 msgid "title"
 msgstr "título"
 
-#: blango/models.py:89
+#: blango/models.py:90
 msgid "body"
 msgstr "cuerpo"
 
-#: blango/models.py:92 blango/models.py:101
-msgid "Date published"
-msgstr "Fecha de publicación"
-
 #: blango/models.py:93
+msgid "Publication date"
+msgstr ""
+
+#: blango/models.py:94
 msgid "Save as draft (don't publish it yet)"
 msgstr "Guardar como borrador (no publicarlo aún)"
 
-#: blango/models.py:94
+#: blango/models.py:95
 msgid "translations"
 msgstr "traducciones"
 
-#: blango/models.py:98
+#: blango/models.py:99
 msgid "Entry"
 msgstr "Entrada"
 
-#: blango/models.py:99 templates/blango/entry.html:26
+#: blango/models.py:100 templates/blango/entry.html:26
 #: templates/blango/list.html:44 templates/blango/list.html.py:70
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: blango/models.py:100
+#: blango/models.py:101
 msgid "Language"
 msgstr "Lenguaje"
 
 #: blango/models.py:102
+msgid "Date published"
+msgstr "Fecha de publicación"
+
+#: blango/models.py:103
 msgid "Save as draft"
 msgstr "Guardar como borrador"
 
-#: blango/models.py:103
+#: blango/models.py:104
 msgid "Published translations"
 msgstr "Traducciones publicadas"
 
-#: blango/models.py:108
+#: blango/models.py:109
 msgid "entry"
 msgstr "entrada"
 
-#: blango/models.py:109
+#: blango/models.py:110
 msgid "entries"
 msgstr "entradas"
 
-#: blango/models.py:166 blango/models.py:183
+#: blango/models.py:167 blango/models.py:185
 msgid "comment"
 msgstr "comentario"
 
-#: blango/models.py:167
+#: blango/models.py:168
 msgid "trackback"
 msgstr "trackback"
 
-#: blango/models.py:168
+#: blango/models.py:169
 msgid "pingback"
 msgstr "pingback"
 
-#: blango/models.py:174
+#: blango/models.py:175
 msgid "Comment"
 msgstr "Comentario"
 
-#: blango/models.py:176
+#: blango/models.py:177
 msgid "Comment type"
 msgstr "Tipo de comentario"
 
-#: blango/models.py:184
+#: blango/models.py:186
 msgid "comments"
 msgstr "comentarios"
 
-#: blango/models.py:222 blango/models.py:227
+#: blango/models.py:228 blango/models.py:233
 msgid "by"
 msgstr "de"
 

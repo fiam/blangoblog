@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 
 from settings import BLANGO_URL, BLANGO_TITLE
 from blango.spider import Spider
+from blango.email import send_subscribers_email
 
 from markdown import markdown
 
@@ -175,6 +176,7 @@ class Comment(models.Model):
     submitted = models.DateTimeField(blank=True)
     type = models.CharField(_('Comment type'), max_length=1, choices=COMMENT_TYPES, default='C')
     user = models.ForeignKey(User, default=None, null=True, blank=True)
+    subscribed = models.BooleanField(_('Notify me of followup comments via e-mail'), default=False)
 
     class Admin:
         list_display = ('entry', 'formatted_author', 'body', 'submitted')
@@ -192,6 +194,7 @@ class Comment(models.Model):
                 not self.author_uri.startswith('https://'):
             self.author_uri = 'http://%s' % self.author_uri
         super(Comment, self).save()
+        send_subscribers_email(self)
 
     def get_absolute_url(self):
         position = Comment.objects.filter(entry=self.entry, submitted__lt=self.submitted).count() + 1

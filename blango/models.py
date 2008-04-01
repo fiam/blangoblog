@@ -90,7 +90,7 @@ class Entry(models.Model):
     body = models.TextField(_('body'))
     tags = models.ManyToManyField(Tag, verbose_name=_('tags'), filter_interface=models.HORIZONTAL)
     body_html = models.TextField(blank=True)
-    published = models.DateTimeField(_('Publication date'), default=datetime.now())
+    published = models.DateTimeField(_('Publication date'), default=datetime.now)
     draft = models.BooleanField(_('Save as draft (don\'t publish it yet)'), default=False)
     translations = models.ManyToManyField('Entry', blank=True, verbose_name=_('translations'), filter_interface=models.HORIZONTAL)
 
@@ -173,7 +173,7 @@ class Comment(models.Model):
     author_uri = models.CharField(_('Website'), max_length=256, blank=True)
     author_email = models.EmailField(_('Email'), blank=True)
     body = models.TextField(_('Comment'), max_length=1000)
-    submitted = models.DateTimeField(blank=True)
+    submitted = models.DateTimeField(default=datetime.now)
     type = models.CharField(_('Comment type'), max_length=1, choices=COMMENT_TYPES, default='C')
     user = models.ForeignKey(User, default=None, null=True, blank=True)
     subscribed = models.BooleanField(_('Notify me of followup comments via e-mail'), default=False)
@@ -186,9 +186,6 @@ class Comment(models.Model):
         verbose_name_plural = _('comments')
 
     def save(self):
-        if self.pk is None or not self.submitted:
-            self.submitted = datetime.now()
-
         if self.author_uri and \
                 not self.author_uri.startswith('http://') and \
                 not self.author_uri.startswith('https://'):

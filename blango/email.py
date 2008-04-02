@@ -29,6 +29,6 @@ def send_subscribers_email(comment):
                 'unsubscribe': BLANGO_URL + 'unsubscribe/%s/%s/' % \
                     (r.id, sha1(r.author_email).hexdigest()) }
         
-        send_mail(subject, message, [r.author_email], fail_silently=True)
+        send_mail(subject, message, from_email, [r.author_email], fail_silently=True)
         
     activate(lang) 

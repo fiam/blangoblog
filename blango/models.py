@@ -1,4 +1,4 @@
-from django.db import models, connection
+from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify, capfirst, force_escape
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -76,11 +76,7 @@ class Tag(models.Model):
 
     @staticmethod
     def for_language(language):
-        cursor = connection.cursor()
-        cursor.execute('''SELECT DISTINCT t.tag_id FROM blango_entry_tags AS t
-            JOIN blango_entry AS e ON e.id = t.entry_id WHERE e.language_id = %d
-            ''' % language.id)
-        return Tag.objects.filter(id__in=[t[0] for t in cursor.fetchall()])
+        return Tag.objects.filter(entry__language=language).distinct()
 
 class Entry(models.Model):
     title = models.CharField(_('title'), max_length=65)

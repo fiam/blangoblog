@@ -220,7 +220,7 @@ msgstr "Enviar"
 
 #: templates/blango/entry.html:96
 msgid "Comments for this entry are currently disabled"
-msgstr "Los comentarios están actualmente desactivados"
+msgstr "Los comentarios para esta entrada están actualmente desactivados"
 
 #: templates/blango/list.html:6 templates/blango/list.html.py:8
 #: templates/blango/list.html:15 templates/blango/list.html.py:17

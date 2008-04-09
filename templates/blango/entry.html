@@ -87,8 +87,12 @@
         </li>
     {% endfor %}
 </ul>
-<form class="commentform" method="post" action="{{ entry.get_absolute_url }}">
-    {{ comment_form.as_p }}
-    <input type="submit" value="{% trans "Submit" %}" />
-</form>
+{% if entry.allow_comments %}
+    <form class="commentform" method="post" action="{{ entry.get_absolute_url }}">
+        {{ comment_form.as_p }}
+        <input type="submit" value="{% trans "Submit" %}" />
+    </form>
+{% else %}
+    <h4>{% trans "Comments for this entry are currently disabled" %}</h4>
+{% endif %}
 {% endblock %}

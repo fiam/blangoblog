@@ -72,7 +72,7 @@ def entry_view(request, entry_slug):
     else:
         comment_form = CommentForm()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and entry.allow_comments:
         try:
             if request.user.is_authenticated():
                 comment_form = UserCommentForm(request.POST)
@@ -114,6 +114,14 @@ def trackback_view(request, entry_id):
                 </response>''', mimetype='text/xml')
     
     entry = get_object_or_404(Entry, pk=entry_id)
+
+    if not entry.allow_comments:
+        return HttpResponse('''<?xml version="1.0" encoding="utf-8"?>
+                <response>
+                    <error>1</error>
+                    <message>Trackbacks are not allowed for this entry</message>
+                </response>''', mimetype='text/xml')
+
 
     try:
         Comment.objects.get(entry=entry, type__in=['T', 'P'], author_uri=url)
@@ -217,6 +225,8 @@ class XmlRpcDispatcher(object):
         slug = target.split('/')[-2]
         try:
             entry = Entry.objects.get(slug=slug)
+            if not entry.allow_comments:
+                raise Entry.DoesNotExist
         except Entry.DoesNotExist:
             return XmlRpcDispatcher.fault(33, 'The specified URI cannot be used as target')
 

@@ -89,6 +89,7 @@ class Entry(models.Model):
     published = models.DateTimeField(_('Publication date'), default=datetime.now)
     draft = models.BooleanField(_('Save as draft (don\'t publish it yet)'), default=False)
     translations = models.ManyToManyField('Entry', blank=True, verbose_name=_('translations'), filter_interface=models.HORIZONTAL)
+    allow_comments = models.BooleanField(_('Allow new comments to be posted'), default=True)
 
     class Admin:
         fields = (
@@ -96,7 +97,7 @@ class Entry(models.Model):
             (_('Tags'), {'fields': ('tags', )}),
             (_('Language'), {'fields': ('language', )}),
             (_('Date published'), {'fields': ('published', )}),
-            (_('Save as draft'), { 'fields': ('draft',)}),
+            (_('Options'), { 'fields': ('draft', 'allow_comments')}),
             (_('Published translations'), { 'fields': ('translations', )}),
         )
         list_display = ('title', 'language', 'formatted_tags', 'published')

@@ -26,6 +26,9 @@ class LatestEntries(Feed):
     def items(self, obj):
         return Entry.objects.filter(draft=False, language=obj).order_by('-published')[:30]
 
+    def item_pubdate(self, obj):
+        return obj.published
+
 
 class LatestEntriesByTag(LatestEntries):
     title_template = 'blango/feeds/title.html'
@@ -64,3 +67,6 @@ class LatestComments(Feed):
 
     def items(self, obj):
         return obj.comments.order_by('-submitted')[:30]
+
+    def item_pubddate(self, obj):
+        return obj.submitted

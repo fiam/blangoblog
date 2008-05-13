@@ -70,7 +70,7 @@ def entry_view(request, entry_slug):
     if request.user.is_authenticated():
         comment_form = UserCommentForm()
     else:
-        comment_form = CommentForm()
+        comment_form = CommentForm(request.META['REMOTE_ADDR'], entry.id)
 
     if request.method == 'POST' and entry.allow_comments:
         try:
@@ -78,7 +78,7 @@ def entry_view(request, entry_slug):
                 comment_form = UserCommentForm(request.POST)
                 comment_form.save(entry, request)
             else:
-                comment_form = CommentForm(request.POST)
+                comment_form = CommentForm(request.META['REMOTE_ADDR'], entry.id, request.POST)
                 comment_form.save(entry)
             return HttpResponseRedirect(entry.get_absolute_url())
         except ValueError:

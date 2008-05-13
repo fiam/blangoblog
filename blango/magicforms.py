@@ -77,8 +77,6 @@ class MagicModelForm(forms.ModelForm):
         super(MagicModelForm, self).__init__(*args, **kwargs)
         self.remote_ip = remote_ip
         self.unique_id = unique_id
-        print 'uni', unique_id
-        print remote_ip
         set_initial_magic(self)
 
     def clean_magic(self):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-09 18:34+0200\n"
+"POT-Creation-Date: 2008-05-13 02:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alberto García Hierro <fiam@rm-fr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,39 +47,52 @@ msgstr ""
 msgid "%(title)s | latest entries (%(name)s)"
 msgstr "%(title)s | últimas entradas (%(name)s)"
 
-#: blango/feeds.py:41
+#: blango/feeds.py:44
 #, python-format
 msgid "Latest entries in %(language)s (%(name)s)"
 msgstr "Últimas entradas en %(language)s (%(name)s)"
 
-#: blango/feeds.py:60
+#: blango/feeds.py:63
 #, python-format
 msgid "Latest comments for \"%s\""
 msgstr "Últimos comentarios en \"%s\""
 
-#: blango/forms.py:17 blango/models.py:169
+#: blango/forms.py:19 blango/models.py:169
 msgid "Name"
 msgstr "Nombre"
 
-#: blango/forms.py:18 blango/models.py:170
+#: blango/forms.py:20 blango/models.py:170
 msgid "Website"
 msgstr "Página web"
 
-#: blango/forms.py:19 blango/models.py:171
+#: blango/forms.py:21 blango/models.py:171
 msgid "Email"
 msgstr "Email"
 
-#: blango/forms.py:19
+#: blango/forms.py:21
 msgid "(Won't be published)"
 msgstr "(No será publicado)"
 
-#: blango/forms.py:20 blango/models.py:176
+#: blango/forms.py:22 blango/models.py:176
 msgid "Notify me of followup comments via e-mail"
-msgstr ""
+msgstr "Avísame de nuevos comentarios con un e-mail"
 
-#: blango/forms.py:34
+#: blango/forms.py:36
 msgid "This username belongs to a registered user"
 msgstr "Este nombre pertenece a un usuario registrado"
+
+#: blango/magicforms.py:28 blango/magicforms.py:31 blango/magicforms.py:36
+msgid "Invalid security token"
+msgstr ""
+
+#: blango/magicforms.py:41
+#, python-format
+msgid "Wait for another %.2f seconds before submitting this form"
+msgstr "Espera otros %.2f segundos antes de enviar este formulario"
+
+#: blango/magicforms.py:44
+msgid "This form has expired. Reload the page to get a new one"
+msgstr "Este formularia ha expirado. Recarga la página para obtener uno nuevo"
 
 #: blango/models.py:44 blango/models.py:85
 msgid "language"

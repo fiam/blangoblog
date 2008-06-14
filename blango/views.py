@@ -39,7 +39,7 @@ def list_view(request, lang, tag_slug, year, month, page):
         tag = get_object_or_404(Tag, slug=tag_slug)
         entries = entries.filter(tags=tag)
     if year and month:
-        entries = entries.filter(published__year=year, published__month=month)
+        entries = entries.filter(pub_date__year=year, pub_date__month=month)
 
     if lang:
         blango_lang = lang + '/'

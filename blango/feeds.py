@@ -27,7 +27,7 @@ class LatestEntries(Feed):
         return Entry.published.filter(language=obj).order_by('-pub_date')[:30]
 
     def item_pubdate(self, obj):
-        return obj.published
+        return obj.pub_date
 
 
 class LatestEntriesByTag(LatestEntries):

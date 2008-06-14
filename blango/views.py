@@ -20,14 +20,6 @@ from blango.forms import *
 def iso639_1(val):
     return val.split('-')[0]
 
-def dates_for_language(language):
-    cursor = connection.cursor()
-    cursor.execute('''SELECT DISTINCT YEAR(pub_date),MONTH(pub_date) FROM
-         blango_entry WHERE language_id = %d ORDER BY
-         YEAR(pub_date) DESC, MONTH(pub_date) DESC
-        ''' % language.id)
-    return [date(row[0], row[1], 1) for row in cursor.fetchall()]
-
 def list_view(request, lang, tag_slug, year, month, page):
     entries = Entry.published.order_by('-pub_date')
     base_url = request.path
@@ -50,7 +42,7 @@ def list_view(request, lang, tag_slug, year, month, page):
     language = get_object_or_404(Language, iso639_1=lang)
     entries = entries.filter(language=language)
 
-    dates = dates_for_language(language)
+    dates = Entry.objects.filter(language=language).dates('pub_date', 'month')
 
     tags = Tag.for_language(language)
     languages = Language.objects.all()
@@ -64,7 +56,7 @@ def list_view(request, lang, tag_slug, year, month, page):
 def entry_view(request, entry_slug):
     entry = get_object_or_404(Entry, slug=entry_slug)
 
-    dates = dates_for_language(entry.language)
+    dates = Entry.objects.filter(language=entry.language).dates('pub_date', 'month')
     tags = Tag.for_language(entry.language)
 
     if request.user.is_authenticated():

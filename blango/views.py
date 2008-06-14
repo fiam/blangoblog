@@ -17,9 +17,6 @@ from settings import LANGUAGE_CODE
 from blango.models import *
 from blango.forms import *
 
-def iso639_1(val):
-    return val.split('-')[0]
-
 def list_view(request, lang, tag_slug, year, month, page):
     entries = Entry.published.order_by('-pub_date')
     base_url = request.path
@@ -35,16 +32,14 @@ def list_view(request, lang, tag_slug, year, month, page):
 
     if lang:
         blango_lang = lang + '/'
+        language = get_object_or_404(Language, iso639_1=lang)
+        entries = entries.filter(language=language)
+        dates = Entry.published.filter(language=language).dates('pub_date', 'month')
+        tags = Tag.for_language(language)
     else:
-        lang = iso639_1(request.LANGUAGE_CODE)
-        blango_lang = ''
+        dates = Entry.published.all().dates('pub_date', 'month')
+        tags = Tag.objects.all()
 
-    language = get_object_or_404(Language, iso639_1=lang)
-    entries = entries.filter(language=language)
-
-    dates = Entry.objects.filter(language=language).dates('pub_date', 'month')
-
-    tags = Tag.for_language(language)
     languages = Language.objects.all()
 
     paginator = QuerySetPaginator(entries, 5, base_url=base_url, page_suffix='%d/')

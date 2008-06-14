@@ -11,20 +11,25 @@ class LatestEntries(Feed):
 
     def get_object(self, bits):
         if len(bits) == 1:
-            lang = bits[0]
-        else:
-            lang = LANGUAGE_CODE.split('-')[0]
-
-        return Language.objects.get(iso639_1=lang)
+            return Language.objects.get(iso639_1=bits[0])
+        return None
 
     def title(self, obj):
-        return _('%(title)s | latest entries (%(name)s)') % { 'title': BLANGO_TITLE, 'name': obj.name }
+        if obj:
+            return _('%(title)s | latest entries (%(name)s)') % { 'title': BLANGO_TITLE, 'name': obj.name }
+        return _('%(title)s | latest entries') % { 'title': BLANGO_TITLE }
 
     def link(self, obj):
-        return BLANGO_URL + obj.iso639_1 + '/'
+        if obj:
+            return BLANGO_URL + obj.iso639_1 + '/'
+        return BLANGO_URL
 
     def items(self, obj):
-        return Entry.published.filter(language=obj).order_by('-pub_date')[:30]
+        entries = Entry.published.order_by('-pub_date')
+        if obj:
+            entries = entries.filter(language=obj)
+
+        return entries[:30]
 
     def item_pubdate(self, obj):
         return obj.pub_date
@@ -35,19 +40,26 @@ class LatestEntriesByTag(LatestEntries):
     description_template = 'blango/feeds/description.html'
 
     def get_object(self, bits):
-        if len(bits) != 2:
-            raise FeedDoesNotExist
-
-        return (Tag.objects.get(slug=bits[0]), Language.objects.get(iso639_1=bits[1]))
+        if len(bits) == 2:
+            return (Tag.objects.get(slug=bits[0]), Language.objects.get(iso639_1=bits[1]))
+        if len(bits) == 1:
+             return (Tag.objects.get(slug=bits[0]), None)
+        raise FeedDoesNotExist
 
     def title(self, obj):
-        return _('Latest entries in %(language)s (%(name)s)') % { 'language': obj[0].name, 'name': obj[1].name }
+        if obj[1]:
+            return _('Latest entries in %(language)s tagged with %(tag)s') % { 'language': obj[1].name, 'tag': obj[0].name }
+        return _('Latest entries tagged with %(tag)s') % { 'tag': obj[0].name }
 
     def link(self, obj):
-        return '%s/%s/' % (obj[0].get_absolute_url(), obj[1].iso639_1)
+        if obj[1]:
+            return '%s/%s/' % (obj[0].get_absolute_url(), obj[1].iso639_1)
+        return '%s/' % obj[0].get_absolute_url()
 
     def items(self, obj):
-        return Entry.published.filter(language=obj[1], tags=obj[0]).order_by('-pub_date')[:30]
+        if obj[1]:
+            return Entry.published.filter(language=obj[1], tags=obj[0]).order_by('-pub_date')[:30]
+        return Entry.published.filter(tags=obj[0]).order_by('-pub_date')[:30]
 
 class LatestComments(Feed):
     title_template = 'blango/feeds/title.html'

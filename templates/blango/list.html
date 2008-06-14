@@ -3,18 +3,18 @@
 {% load humanize %}
 {% block rss %}
 {% if tag_slug %}
-<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }} ({{ tag_slug }})" href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ language.iso639_1 }}/"/>
+<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }} ({{ tag_slug }})" href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ blango_lang }}"/>
 {% else %}
-<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }}" href="{{ blango_url }}feeds/latest/{{ language.iso639_1 }}/"/>
+<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }}" href="{{ blango_url }}feeds/latest/{{ blango_lang }}"/>
 {% endif %}
 {% endblock %}
 {% block navbar %}
 <div id="rssbox">
     {% block rssbox %}
     {% if tag_slug %}
-        <a title="{% trans "Latest entries in" %} {{ language.name }} ({{ tag_slug }})" href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ language.iso639_1 }}/">RSS</a>
+        <a title="{% trans "Latest entries in" %} {{ language.name }} ({{ tag_slug }})" href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ blango_lang }}">RSS</a>
     {% else %}
-        <a title="{% trans "Latest entries in" %} {{ language.name }}" href="{{ blango_url }}feeds/latest/{{ language.iso639_1 }}/">RSS</a>
+        <a title="{% trans "Latest entries in" %} {{ language.name }}" href="{{ blango_url }}feeds/latest/{{ blango_lang }}">RSS</a>
     {% endif %}
     {% endblock %}
 </div>

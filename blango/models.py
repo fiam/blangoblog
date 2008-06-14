@@ -10,7 +10,7 @@ from blango.email import send_subscribers_email
 
 from markdown import markdown
 
-from datetime import datetime
+from datetime import datetime, timedelta
 import re
 
 class short_description(object):
@@ -78,6 +78,10 @@ class Tag(models.Model):
     def for_language(language):
         return Tag.objects.filter(entry__language=language).distinct()
 
+class PublishedEntryManager(models.Manager):
+    def get_query_set(self):
+        return super(PublishedEntryManager, self).get_query_set().filter(draft=False, pub_date__lte=datetime.now())
+
 class Entry(models.Model):
     title = models.CharField(_('title'), max_length=65)
     slug = models.SlugField(max_length=65, blank=True)
@@ -86,21 +90,24 @@ class Entry(models.Model):
     body = models.TextField(_('body'))
     tags = models.ManyToManyField(Tag, verbose_name=_('tags'), filter_interface=models.HORIZONTAL)
     body_html = models.TextField(blank=True)
-    published = models.DateTimeField(_('Publication date'), default=datetime.now)
+    pub_date = models.DateTimeField(_('Publication date'), default=datetime.now)
     draft = models.BooleanField(_('Save as draft (don\'t publish it yet)'), default=False)
     translations = models.ManyToManyField('Entry', blank=True, verbose_name=_('translations'), filter_interface=models.HORIZONTAL)
     allow_comments = models.BooleanField(_('Allow new comments to be posted'), default=True)
+
+    objects = models.Manager()
+    published = PublishedEntryManager()
 
     class Admin:
         fields = (
             (_('Entry'), {'fields': ('title', 'body')}),
             (_('Tags'), {'fields': ('tags', )}),
             (_('Language'), {'fields': ('language', )}),
-            (_('Date published'), {'fields': ('published', )}),
+            (_('Date published'), {'fields': ('pub_date', )}),
             (_('Options'), { 'fields': ('draft', 'allow_comments')}),
             (_('Published translations'), { 'fields': ('translations', )}),
         )
-        list_display = ('title', 'language', 'formatted_tags', 'published')
+        list_display = ('title', 'language', 'formatted_tags', 'pub_date')
 
     class Meta:
         verbose_name = _('entry')
@@ -128,9 +135,9 @@ class Entry(models.Model):
             self.author = User.objects.get(pk=1)
         self.body_html = markdown(self.body, ['codehilite'])
         published_now = False
-        if not self.draft:
+        if not self.draft and self.pub_date < datetime.now() + timedelta(seconds=5):
             if not self.pk or Entry.objects.get(pk=self.pk).draft != self.draft:
-                self.published = datetime.now()
+                self.pub_date = datetime.now()
                 published_now = True
 
         super(Entry, self).save()

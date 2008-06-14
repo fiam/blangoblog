@@ -22,14 +22,14 @@ def iso639_1(val):
 
 def dates_for_language(language):
     cursor = connection.cursor()
-    cursor.execute('''SELECT DISTINCT YEAR(published),MONTH(published) FROM
+    cursor.execute('''SELECT DISTINCT YEAR(pub_date),MONTH(pub_date) FROM
          blango_entry WHERE language_id = %d ORDER BY
-         YEAR(published) DESC, MONTH(published) DESC
+         YEAR(pub_date) DESC, MONTH(pub_date) DESC
         ''' % language.id)
     return [date(row[0], row[1], 1) for row in cursor.fetchall()]
 
 def list_view(request, lang, tag_slug, year, month, page):
-    entries = Entry.objects.filter(draft=False).order_by('-published')
+    entries = Entry.published.order_by('-pub_date')
     base_url = request.path
 
     if page:

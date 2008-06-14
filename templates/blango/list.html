@@ -62,7 +62,7 @@
                 <a href="{{ e.get_absolute_url }}">{{ e.title }}</a>
                 {% if user.is_staff %}<span class="edit">( <a href={{ blango_url }}admin/blango/entry/{{ e.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
             </h3>
-            <span class="time">{{ e.published|naturalday }} {% trans "at" %} {{ e.published|time:"H:i:s" }} {{ e.published|date:"T" }}</span>
+            <span class="time">{{ e.pub_date|naturalday }} {% trans "at" %} {{ e.pub_date|time:"H:i:s" }} {{ e.pub_date|date:"T" }}</span>
             <div class="ebody">
                 {{ e.body_html|safe }}
             </div>

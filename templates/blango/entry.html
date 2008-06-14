@@ -18,7 +18,7 @@
             {{ entry.title }}
             {% if user.is_staff %}<span class="edit">( <a href={{ blango_url }}admin/blango/entry/{{ entry.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
         </h2>
-        <span class="time">{{ entry.published|naturalday }} {% trans "at" %} {{ entry.published|time:"H:i:s" }} {{ entry.published|date:"T" }}</span>
+        <span class="time">{{ entry.pub_date|naturalday }} {% trans "at" %} {{ entry.pub_date|time:"H:i:s" }} {{ entry.pub_date|date:"T" }}</span>
         <div class="ebody">
             {{ entry.body_html|safe }}
         </div>

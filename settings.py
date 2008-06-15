@@ -58,6 +58,14 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.load_template_source',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'context_processors.blango_config',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -87,11 +95,6 @@ INSTALLED_APPS = (
 
 BLANGO_URL = 'http://django:8000/'
 BLANGO_TITLE = u'fíam'
-class EXPORTED:
-    fields = (
-        ('blango_url', BLANGO_URL),
-        ('blango_title', BLANGO_TITLE),
-        ('blango_subtitle', u'(rhymes with liam)'),
-        ('blango_media', '/site-media/'),
-    )
+BLANGO_SUBTITLE = u'(rhymes with liam)'
+BLANGO_MEDIA = '/site-media/'
 

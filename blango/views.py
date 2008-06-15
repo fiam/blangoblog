@@ -9,10 +9,7 @@ from blango.spider import Spider, hostname_from_uri, is_absolute_link
 
 from xml.etree import cElementTree
 
-
 from datetime import date
-
-from settings import LANGUAGE_CODE
 
 from blango.models import *
 from blango.forms import *

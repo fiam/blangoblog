@@ -1,7 +1,6 @@
 from django.contrib.syndication.feeds import Feed, FeedDoesNotExist
 from django.utils.translation import ugettext_lazy as _
-
-from settings import BLANGO_URL, BLANGO_TITLE, LANGUAGE_CODE
+from django.conf import settings
 
 from blango.models import Language, Tag, Entry
 
@@ -16,13 +15,13 @@ class LatestEntries(Feed):
 
     def title(self, obj):
         if obj:
-            return _('%(title)s | latest entries (%(name)s)') % { 'title': BLANGO_TITLE, 'name': obj.name }
-        return _('%(title)s | latest entries') % { 'title': BLANGO_TITLE }
+            return _('%(title)s | latest entries (%(name)s)') % { 'title': settings.BLANGO_TITLE, 'name': obj.name }
+        return _('%(title)s | latest entries') % { 'title': settings.BLANGO_TITLE }
 
     def link(self, obj):
         if obj:
-            return BLANGO_URL + obj.iso639_1 + '/'
-        return BLANGO_URL
+            return settings.BLANGO_URL + obj.iso639_1 + '/'
+        return settings.BLANGO_URL
 
     def items(self, obj):
         entries = Entry.published.order_by('-pub_date')

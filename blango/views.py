@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.db import connection
-from django.core.paginator import QuerySetPaginator, InvalidPage
+from blango.paginator import QuerySetPaginator, InvalidPage
 from django.utils.translation import ugettext as _
 
 from blango.spider import Spider, hostname_from_uri, is_absolute_link

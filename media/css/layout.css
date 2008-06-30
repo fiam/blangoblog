@@ -319,3 +319,14 @@ span.small {
 span.medium {
     font-size: 0.9em;
 }
+#rssplug a,
+#rssplug a:visited {
+    color: #FFF;
+    margin: .5em 0;
+    font-size: 95%;
+}
+#rssplug p.date {
+    color: #FFFFCC;
+    font-size: 90%;
+    margin-bottom: 1em;
+}

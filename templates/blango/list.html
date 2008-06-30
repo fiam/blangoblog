@@ -50,9 +50,16 @@
         </ul>
     </div>
 </div>
-<div class="navbox" id="aboutbox">
-    About me
+{% comment %}
+<!-- Customize the address and the template -->
+<div class="navbox" id="rssplug">
+    <h3>{% trans "Latest notes" %}</h3>
+    <div class="navbox-body">
+        {% load rssplug %}
+        {% rssplug "http://bynotes.com/_feeds/public/fiam/?limit=5" "note.html" %}
+    </div>
 </div>
+{% endcomment %}
 {% endblock %}
 {% block content %}
 <ul id="entries">

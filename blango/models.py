@@ -112,8 +112,6 @@ class Entry(models.Model):
 
     def save(self):
         self.slug = make_slug(self)
-        if not self.author_id:
-            self.author = User.objects.get(pk=1)
         self.body_html = markdown(self.body, ['codehilite'])
         published_now = False
         if not self.draft and self.pub_date < datetime.now() + timedelta(seconds=5):

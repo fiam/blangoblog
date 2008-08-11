@@ -27,6 +27,10 @@ class EntryAdmin(admin.ModelAdmin):
 
     list_display = ('title', 'language', 'formatted_tags', 'pub_date')
 
+    def save_form(self, request, form, change):
+        form.instance.author = request.user
+        return super(EntryAdmin, self).save_form(request, form, change)
+
 admin.site.register(Entry, EntryAdmin)
 
 class CommentAdmin(admin.ModelAdmin):

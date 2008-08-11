@@ -1,16 +1,13 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from datetime import date
+from xml.etree import cElementTree
+
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import RequestContext
-from django.db import connection
-from blango.paginator import QuerySetPaginator, InvalidPage
+from django.views.generic.simple import direct_to_template
 from django.utils.translation import ugettext as _
 
 from blango.spider import Spider, hostname_from_uri, is_absolute_link
-
-from xml.etree import cElementTree
-
-from datetime import date
-
+from blango.paginator import QuerySetPaginator
 from blango.models import *
 from blango.forms import *
 
@@ -42,8 +39,7 @@ def list_view(request, lang, tag_slug, year, month, page):
     paginator = QuerySetPaginator(entries, 5, base_url=base_url, page_suffix='%d/')
     page = paginator.page_or_404(page or 1)
 
-    return render_to_response('blango/list.html', locals(),
-            context_instance=RequestContext(request))
+    return direct_to_template(request, 'blango/list.html', locals())
 
 def entry_view(request, entry_slug):
     entry = get_object_or_404(Entry, slug=entry_slug)
@@ -68,8 +64,7 @@ def entry_view(request, entry_slug):
         except ValueError:
             pass
 
-    return render_to_response('blango/entry.html', locals(),
-            context_instance=RequestContext(request))
+    return direct_to_template(request, 'blango/entry.html', locals())
 
 def trackback_view(request, entry_id):
     title = request.POST.get('title')

@@ -90,7 +90,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.humanize',
-    'blog.blango',
+    'blango',
 )
 
 BLANGO_URL = 'http://django:8000/'

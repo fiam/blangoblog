@@ -37,9 +37,6 @@ class Language(models.Model):
     name = models.CharField('Language name', max_length=20, unique=True)
     iso639_1 = models.CharField('ISO 639-1 language code', max_length=2, unique=True)
 
-    class Admin:
-        pass
-
     class Meta:
         verbose_name = _('language')
         verbose_name_plural = _('languages')
@@ -50,11 +47,6 @@ class Language(models.Model):
 class Tag(models.Model):
     name = models.CharField('Tag name', max_length=32)
     slug = models.SlugField(blank=True)
-
-    class Admin:
-        fields = (
-            (None, {'fields': ('name',)}),
-        )
 
     class Meta:
         verbose_name = _('tag')
@@ -86,28 +78,17 @@ class Entry(models.Model):
     title = models.CharField(_('title'), max_length=65)
     slug = models.SlugField(max_length=65, blank=True)
     author = models.ForeignKey(User, blank=True)
-    language = models.ForeignKey(Language, radio_admin=True, verbose_name=_('language'))
+    language = models.ForeignKey(Language, verbose_name=_('language'))
     body = models.TextField(_('body'))
-    tags = models.ManyToManyField(Tag, verbose_name=_('tags'), filter_interface=models.HORIZONTAL)
+    tags = models.ManyToManyField(Tag, verbose_name=_('tags'))
     body_html = models.TextField(blank=True)
     pub_date = models.DateTimeField(_('Publication date'), default=datetime.now)
     draft = models.BooleanField(_('Save as draft (don\'t publish it yet)'), default=False)
-    translations = models.ManyToManyField('Entry', blank=True, verbose_name=_('translations'), filter_interface=models.HORIZONTAL)
+    translations = models.ManyToManyField('Entry', blank=True, verbose_name=_('translations'))
     allow_comments = models.BooleanField(_('Allow new comments to be posted'), default=True)
 
     objects = models.Manager()
     published = PublishedEntryManager()
-
-    class Admin:
-        fields = (
-            (_('Entry'), {'fields': ('title', 'body')}),
-            (_('Tags'), {'fields': ('tags', )}),
-            (_('Language'), {'fields': ('language', )}),
-            (_('Date published'), {'fields': ('pub_date', )}),
-            (_('Options'), { 'fields': ('draft', 'allow_comments')}),
-            (_('Published translations'), { 'fields': ('translations', )}),
-        )
-        list_display = ('title', 'language', 'formatted_tags', 'pub_date')
 
     class Meta:
         verbose_name = _('entry')
@@ -181,9 +162,6 @@ class Comment(models.Model):
     type = models.CharField(_('Comment type'), max_length=1, choices=COMMENT_TYPES, default='C')
     user = models.ForeignKey(User, default=None, null=True, blank=True)
     subscribed = models.BooleanField(_('Notify me of followup comments via e-mail'), default=False)
-
-    class Admin:
-        list_display = ('entry', 'formatted_author', 'body', 'submitted')
 
     class Meta:
         verbose_name = _('comment')

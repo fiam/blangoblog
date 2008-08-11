@@ -13,11 +13,11 @@
     {% block rssbox %}
     {% if tag_slug %}
         <a href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ blango_lang }}">
-            {% trans "Latest entries" %}{% if language %}{% blocktrans with language.name as lname %} in {{ lname }}{% endblocktrans %}{% endif %} ({{ tag_slug }})
+            {% trans "Latest entries" %}{% if language %} {% blocktrans with language.name as lname %} in {{ lname }}{% endblocktrans %}{% endif %} ({{ tag_slug }})
         </a>
     {% else %}
         <a href="{{ blango_url }}feeds/latest/{{ blango_lang }}">
-            {% trans "Latest entries" %}{% if language %}{% blocktrans with language.name as lname %} in {{ lname }}{% endblocktrans %}{% endif %}
+            {% trans "Latest entries" %}{% if language %} {% blocktrans with language.name as lname %} in {{ lname }}{% endblocktrans %}{% endif %}
         </a>
     {% endif %}
     {% endblock %}

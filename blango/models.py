@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify, capfirst, force_escape
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.conf import settings
 
-from settings import BLANGO_URL, BLANGO_TITLE
 from blango.spider import Spider
 from blango.email import send_subscribers_email
 
@@ -57,7 +57,7 @@ class Tag(models.Model):
         super(Tag, self).save()
 
     def get_absolute_url(self):
-        return BLANGO_URL + 'tag/%s/' % self.slug
+        return settings.BLANGO_URL + 'tag/%s/' % self.slug
 
     def __unicode__(self):
         return self.name
@@ -101,13 +101,13 @@ class Entry(models.Model):
         r = re.compile('<a.*?href=["\'](.*?)["\'].*?>', re.I | re.S)
         for anchor in r.finditer(self.body_html):
             link = anchor.group(1)
-            if link.startswith(BLANGO_URL):
+            if link.startswith(settings.BLANGO_URL):
                 continue
             s = Spider(link)
             if not s.trackback(title=self.title,
                     url=self.get_absolute_url(),
                     excerpt=self.body_html,
-                    page_name=BLANGO_TITLE):
+                    page_name=settings.BLANGO_TITLE):
                 s.pingback(self.get_absolute_url())
 
     def save(self):
@@ -126,10 +126,10 @@ class Entry(models.Model):
             self.ping()
 
     def get_absolute_url(self):
-        return BLANGO_URL + 'entry/%s/' % self.slug
+        return settings.BLANGO_URL + 'entry/%s/' % self.slug
 
     def get_trackback_url(self):
-        return BLANGO_URL + 'trackback/%d/' % self.pk
+        return settings.BLANGO_URL + 'trackback/%d/' % self.pk
 
     @short_description(_('tags'))
     def formatted_tags(self):
@@ -177,7 +177,7 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         position = Comment.objects.filter(entry=self.entry, submitted__lt=self.submitted).count() + 1
-        return BLANGO_URL + 'entry/%s/#comment-%d' % (self.entry.slug, position)
+        return settings.BLANGO_URL + 'entry/%s/#comment-%d' % (self.entry.slug, position)
 
     def __unicode__(self):
         return self.body
@@ -193,7 +193,7 @@ class Comment(models.Model):
     def author_link(self):
         if self.user is not None:
             return mark_safe('<a href="%s">%s</a>' % \
-                    (BLANGO_URL, self.author_name))
+                    (settings.BLANGO_URL, self.author_name))
 
         if self.author_uri:
             return mark_safe('<a rel="external nofollow" href="%s">%s</a>' % \

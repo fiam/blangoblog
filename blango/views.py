@@ -11,6 +11,9 @@ from blango.paginator import QuerySetPaginator
 from blango.models import *
 from blango.forms import *
 
+def get_template_name(name):
+    return 'blango/%s/%s' % (settings.BLANGO_THEME, name)
+
 def list_view(request, lang, tag_slug, year, month, page):
     entries = Entry.published.order_by('-pub_date')
     base_url = request.path
@@ -39,10 +42,11 @@ def list_view(request, lang, tag_slug, year, month, page):
     paginator = QuerySetPaginator(entries, 5, base_url=base_url, page_suffix='%d/')
     page = paginator.page_or_404(page or 1)
 
-    return direct_to_template(request, 'blango/list.html', locals())
+    return direct_to_template(request, get_template_name('list.html'), locals())
 
 def entry_view(request, entry_slug):
     entry = get_object_or_404(Entry, slug=entry_slug)
+    EntryHit.objects.create(entry=entry)
 
     dates = Entry.objects.filter(language=entry.language).dates('pub_date', 'month')
     tags = Tag.for_language(entry.language)
@@ -64,7 +68,9 @@ def entry_view(request, entry_slug):
         except ValueError:
             pass
 
-    return direct_to_template(request, 'blango/entry.html', locals())
+    language = entry.language
+    blango_lang = '%s/' % language.iso639_1
+    return direct_to_template(request, get_template_name('entry.html'), locals())
 
 def trackback_view(request, entry_id):
     title = request.POST.get('title')

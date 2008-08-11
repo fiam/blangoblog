@@ -218,3 +218,7 @@ class Comment(models.Model):
         if self.user is not None:
             return ('%s <%s>' % (self.user.username, self.user.email))
         return ('%s <%s>' % (self.author, self.author_email))
+
+class EntryHit(models.Model):
+    entry = models.ForeignKey(Entry)
+    when = models.DateTimeField(default=datetime.now)

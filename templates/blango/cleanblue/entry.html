@@ -1,0 +1,92 @@
+{% extends "blango/cleanblue/list.html" %}
+{% load i18n %}
+{% load humanize %}
+{% block pingback %}
+<link rel="pingback" href="{{ blango_url }}xmlrpc/" />
+{% endblock %}
+{% block subtitle %} &raquo; {{ entry.title }}{% endblock %}
+{% block content %}
+<ul id="entries">
+    <li class="entry" id="entry-{{ entry.id }}">
+        <h2>
+            {{ entry.title }}
+            {% if user.is_staff %}<span class="edit">( <a href={{ blango_url }}admin/blango/entry/{{ entry.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
+        </h2>
+        <span class="time">{{ entry.pub_date|naturalday }} {% trans "at" %} {{ entry.pub_date|time:"H:i:s" }} {{ entry.pub_date|date:"T" }}</span>
+        <div class="ebody">
+            {{ entry.body_html|safe }}
+        </div>
+        <div class="meta">
+            {% trans "Tags" %}:
+            <ul class="tags">
+                {% for t in entry.tags.all %}
+                    <li><a href="{{ blango_url }}{{ entry.language.iso639_1 }}/tag/{{ t.slug }}/">{{ t }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if entry.translations.all %}
+            {% trans "This entry is also available in the following languages:" %}
+            <ul id="translations">
+            {% for t in entry.translations.all %}
+                <li>
+                    <a href="{{ t.get_absolute_url }}">
+                        <img alt="{{ t.slug }}" src="/site-media/lang/{{ t.language.iso639_1 }}.gif" />
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <!--
+            <rdf:RDF
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:tb="http://madskills.com/public/xml/rss/module/trackback/"
+                xmlns:dc="http://purl.org/dc/elements/1.1/">
+                <rdf:Description
+                    rdf:about="{{ entry.get_absolute_url }}"
+                    dc:identifier="{{ entry.get_absolute_url }}"
+                    dc:title="{{ entry.title }}"
+                    trackback:ping="{{ entry.get_trackback_url }}" />
+            </rdf:RDF>
+        -->
+    </li>
+</ul>
+<h4>
+{% blocktrans count entry.comments.count as ccount %}{{ ccount }} comment{% plural %}{{ ccount }} comments{% endblocktrans %}
+{% trans "for" %} "{{ entry.title }}"
+</h4>
+<ul id="comments">
+    <li style="display: none"></li>
+    {% for c in entry.comments %}
+        <li class="comment {% cycle 'odd' 'even' %}{% if c.user %} staff{% endif %}" id="comment-{{ forloop.counter }}">
+            <div class="comment-top">
+                <span class="number">#{{ forloop.counter }}</span>
+                <span class="author">
+                    {{ c.web_title }}
+                </span>
+                <span class="time">
+                    {{ c.submitted|naturalday }}
+                    {% trans "at" %}
+                    {{ c.submitted|time:"H:i:s" }}
+                    {{ c.submitted|date:"T" }}
+                </span>
+                <span class="permalink">
+                    ( <a href="#comment-{{ forloop.counter }}">{% trans "Permalink" %}</a> )
+                </span>
+            </div>
+            {% if c.body %}
+                <div class="comment-body">
+                    {{ c.body|linebreaks }}
+                </div>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% if entry.allow_comments %}
+    <form class="commentform" method="post" action="{{ entry.get_absolute_url }}">
+        {{ comment_form.as_p }}
+        <input type="submit" value="{% trans "Submit" %}" />
+    </form>
+{% else %}
+    <h4>{% trans "Comments for this entry are currently disabled" %}</h4>
+{% endif %}
+{% endblock %}

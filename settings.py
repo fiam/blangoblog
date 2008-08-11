@@ -96,5 +96,6 @@ INSTALLED_APPS = (
 BLANGO_URL = 'http://django:8000/'
 BLANGO_TITLE = u'fíam'
 BLANGO_SUBTITLE = u'(rhymes with liam)'
-BLANGO_MEDIA = '/site-media/'
+BLANGO_MEDIA = '/site-media/cleanblue/'
+BLANGO_THEME = 'cleanblue'
 

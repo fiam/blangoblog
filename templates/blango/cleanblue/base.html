@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load i18n %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>{{ blango_title }}{% block subtitle %}{% endblock %}</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="{{ blango_media }}css/layout.css" rel="stylesheet" type="text/css" />
+<link href="{{ blango_media }}css/code.css" rel="stylesheet" type="text/css" />
+{% block rss %}{% endblock %}
+{% block pingback %}{% endblock %}
+</head>
+<body>
+    <div id="all">
+        <div id="blog-title">
+            {% if languages %}
+                <div id="languages">
+                    {% for l in languages %}
+                            <a title="{{ l.name }}" href="{{ blango_url }}{{ l.iso639_1 }}/">
+                                <img alt="{{ l.name }}" src="{{ blango_media}}lang/{{ l.iso639_1 }}.gif" />
+                            </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <h1><a href="{{ blango_url }}">{{ blango_title }}</a></h1>
+            <h2><a href="{{ blango_url }}">{{ blango_subtitle }}</a></h2>
+        </div>
+    <div id="header">
+        <div id="header-inner">
+        </div>
+    </div>
+    <div id="main-wrapper">
+        <div class="navbar">
+            {% block navbar %}
+            {% endblock %}
+        </div>
+        <div id="content">
+            <div id="content-inner">
+                {% block content %}
+                {% endblock %}
+                <div style="clear: both"></div>
+            </div>
+        </div>
+        <div id="footer">
+            {% load popentries %}
+            <h4>{% trans "Popular entries" %}</h4>
+            <dl>
+                <dt>{% trans "This week" %}</dt>
+                {% popentries "w" %}
+            </dl>
+            <dl>
+                <dt>{% trans "This month" %}</dt>
+                {% popentries "m" %}
+            </dl>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    </div>
+{% block postfooter %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,98 @@
+{% extends "blango/cleanblue/base.html" %}
+{% load i18n %}
+{% load humanize %}
+{% block rss %}
+{% if tag_slug %}
+<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }} ({{ tag_slug }})" href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ blango_lang }}"/>
+{% else %}
+<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }}" href="{{ blango_url }}feeds/latest/{{ blango_lang }}"/>
+{% endif %}
+{% endblock %}
+{% block navbar %}
+<div id="rssbox">
+    {% block rssbox %}
+    {% if tag_slug %}
+        <a href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ blango_lang }}">
+            {% trans "Latest entries" %}{% if language %}{% blocktrans with language.name as lname %} in {{ lname }}{% endblocktrans %}{% endif %} ({{ tag_slug }})
+        </a>
+    {% else %}
+        <a href="{{ blango_url }}feeds/latest/{{ blango_lang }}">
+            {% trans "Latest entries" %}{% if language %}{% blocktrans with language.name as lname %} in {{ lname }}{% endblocktrans %}{% endif %}
+        </a>
+    {% endif %}
+    {% endblock %}
+</div>
+{% if user.is_staff %}
+    <div class="navbox">
+        <h3>{% trans "Admin" %}</h3>
+        <div class="navbox-body">
+            <ul>
+                <li>&raquo; <a href="{{ blango_url }}admin/">{% trans "Admin" %}</a></li>
+                <li>&raquo; <a href="{{ blango_url }}admin/blango/entry/add/">{% trans "Add entry" %}</a></li>
+            </ul>
+        </div>
+    </div>
+{% endif %}
+<div class="navbox">
+    <h3>{% trans "Archives" %}</h3>
+    <div class="navbox-body">
+        <ul>
+            {% for d in dates %}
+                <li>&raquo; <a href="{{ blango_url }}{{ blango_lang }}{{ d.year }}/{{ d|date:"m" }}/">{{ d|date:"F, Y" }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="navbox">
+    <h3>{% trans "Tags" %}</h3>
+    <div class="navbox-body">
+        <ul>
+            {% for t in tags %}
+                <li>&raquo; <a href="{{ blango_url }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% comment %}
+<!-- Customize the address and the template -->
+<div class="navbox" id="rssplug">
+    <h3>{% trans "Latest notes" %}</h3>
+    <div class="navbox-body">
+        {% load rssplug %}
+        {% rssplug "http://bynotes.com/_feeds/public/fiam/?limit=5" "note.html" %}
+    </div>
+</div>
+{% endcomment %}
+{% endblock %}
+{% block content %}
+<ul id="entries">
+    {% for e in page.object_list %}
+        <li class="entry" id="entry-{{ e.id }}">
+            <h3>
+                <a href="{{ e.get_absolute_url }}">{{ e.title }}</a>
+                {% if user.is_staff %}<span class="edit">( <a href={{ blango_url }}admin/blango/entry/{{ e.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
+            </h3>
+            <span class="time">{{ e.pub_date|naturalday }} {% trans "at" %} {{ e.pub_date|time:"H:i:s" }} {{ e.pub_date|date:"T" }}</span>
+            <div class="ebody">
+                {{ e.body_html|safe }}
+            </div>
+            <div class="meta">
+                {% trans "Tags" %}: <ul class="tags">
+                    {% for t in e.tags.all %}
+                        <li><a href="{{ blango_url }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
+                    {% endfor %}
+                </ul>
+            | <span class="comments">
+                <a href="{{ e.get_absolute_url }}#comments">
+                    {% blocktrans count e.comments.count as ccount %}{{ ccount }} comment{% plural %}{{ ccount }} comments{% endblocktrans %}
+                </a>
+            </span>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+{% if page.has_other_pages %}
+    {{ page.paginator.page_list.as_ul }}
+{% endif %}
+{% endblock %}

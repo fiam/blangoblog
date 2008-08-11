@@ -1,11 +1,7 @@
 from django.utils.translation import ugettext as _
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
-
-try:
-    from django import newforms as forms
-except ImportError:
-    from django import forms
+from django import forms
 
 from blango.models import Comment
 from blango.magicforms import MagicModelForm

@@ -4,13 +4,10 @@ from datetime import datetime, timedelta
 from base64 import urlsafe_b64encode as b64encode
 from base64 import urlsafe_b64decode as b64decode
 
-try:
-    from django import newforms as forms
-except ImportError:
-    from django import forms
 
 from django.conf import settings
 from django.utils.translation import ugettext as _
+from django import forms
 
 MIN_WAIT_SECONDS = 5
 MAX_WAIT_SECONDS = 3600

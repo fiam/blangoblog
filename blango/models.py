@@ -97,6 +97,24 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
 
+    def next(self):
+        if not hasattr(self, '_next'):
+            try:
+                self._next = Entry.objects.filter(pk__gt=self.pk)[0]
+            except IndexError:
+                self._next = None
+
+        return self._next
+
+    def prev(self):
+        if not hasattr(self, '_prev'):
+            try:
+                self._prev = Entry.objects.filter(pk__lt=self.pk)[0]
+            except IndexError:
+                self._prev = None
+
+        return self._prev
+
     def ping(self):
         r = re.compile('<a.*?href=["\'](.*?)["\'].*?>', re.I | re.S)
         for anchor in r.finditer(self.body_html):

@@ -7,13 +7,43 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-30 22:17+0200\n"
-"PO-Revision-Date: 2008-06-15 02:08+0100\n"
+"POT-Creation-Date: 2008-08-11 20:53+0200\n"
+"PO-Revision-Date: 2008-08-11 20:54+0100\n"
 "Last-Translator: Alberto García Hierro <skyhusker@rm-fr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: blango/admin.py:17
+msgid "Entry"
+msgstr "Entrada"
+
+#: blango/admin.py:18
+#: templates/blango/cleanblue/entry.html:20
+#: templates/blango/cleanblue/list.html:48
+#: templates/blango/cleanblue/list.html:81
+#: templates/blango/default/entry.html:26
+#: templates/blango/default/list.html:44
+#: templates/blango/default/list.html:77
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: blango/admin.py:19
+msgid "Language"
+msgstr "Lenguaje"
+
+#: blango/admin.py:20
+msgid "Date published"
+msgstr "Fecha de publicación"
+
+#: blango/admin.py:21
+msgid "Options"
+msgstr "Opciones"
+
+#: blango/admin.py:22
+msgid "Published translations"
+msgstr "Traducciones publicadas"
 
 #: blango/email.py:17
 #, python-format
@@ -24,8 +54,7 @@ msgstr "Nuevo comentario en %s"
 #, python-format
 msgid ""
 "\n"
-"        A new comment has been posted in %(entry)s. You can read it at %(uri)"
-"s\n"
+"        A new comment has been posted in %(entry)s. You can read it at %(uri)s\n"
 "\n"
 "        \n"
 "        You're receiving this email because you subscribed to \"%(entry)s\"\n"
@@ -66,141 +95,127 @@ msgstr "Últimas entradas etiquetadas con %(tag)s"
 msgid "Latest comments for \"%s\""
 msgstr "Últimos comentarios en \"%s\""
 
-#: blango/forms.py:19 blango/models.py:176
+#: blango/forms.py:15
+#: blango/models.py:173
 msgid "Name"
 msgstr "Nombre"
 
-#: blango/forms.py:20 blango/models.py:177
+#: blango/forms.py:16
+#: blango/models.py:174
 msgid "Website"
 msgstr "Página web"
 
-#: blango/forms.py:21 blango/models.py:178
+#: blango/forms.py:17
+#: blango/models.py:175
 msgid "Email"
 msgstr "Email"
 
-#: blango/forms.py:21
+#: blango/forms.py:17
 msgid "(Won't be published)"
 msgstr "(No será publicado)"
 
-#: blango/forms.py:22 blango/models.py:183
+#: blango/forms.py:18
+#: blango/models.py:180
 msgid "Notify me of followup comments via e-mail"
 msgstr "Avísame de nuevos comentarios con un e-mail"
 
-#: blango/forms.py:36
+#: blango/forms.py:32
 msgid "This username belongs to a registered user"
 msgstr "Este nombre pertenece a un usuario registrado"
 
-#: blango/magicforms.py:28 blango/magicforms.py:31 blango/magicforms.py:36
+#: blango/magicforms.py:25
+#: blango/magicforms.py:28
+#: blango/magicforms.py:33
 msgid "Invalid security token"
 msgstr "Token de seguridad inválido"
 
-#: blango/magicforms.py:41
+#: blango/magicforms.py:38
 #, python-format
 msgid "Wait for another %.2f seconds before submitting this form"
 msgstr "Espera otros %.2f segundos antes de enviar este formulario"
 
-#: blango/magicforms.py:44
+#: blango/magicforms.py:41
 msgid "This form has expired. Reload the page to get a new one"
 msgstr "Este formularia ha expirado. Recarga la página para obtener uno nuevo"
 
-#: blango/models.py:44 blango/models.py:89
+#: blango/models.py:41
+#: blango/models.py:81
 msgid "language"
 msgstr "lenguaje"
 
-#: blango/models.py:45
+#: blango/models.py:42
 msgid "languages"
 msgstr "lenguajes"
 
-#: blango/models.py:60
+#: blango/models.py:52
 msgid "tag"
 msgstr "etiqueta"
 
-#: blango/models.py:61 blango/models.py:91 blango/models.py:153
+#: blango/models.py:53
+#: blango/models.py:83
+#: blango/models.py:150
 msgid "tags"
 msgstr "etiquetas"
 
-#: blango/models.py:86
+#: blango/models.py:78
 msgid "title"
 msgstr "título"
 
-#: blango/models.py:90
+#: blango/models.py:82
 msgid "body"
 msgstr "cuerpo"
 
-#: blango/models.py:93
+#: blango/models.py:85
 msgid "Publication date"
 msgstr "Fecha de publicación"
 
-#: blango/models.py:94
+#: blango/models.py:86
 msgid "Save as draft (don't publish it yet)"
 msgstr "Guardar como borrador (no publicarlo aún)"
 
-#: blango/models.py:95
+#: blango/models.py:87
 msgid "translations"
 msgstr "traducciones"
 
-#: blango/models.py:96
+#: blango/models.py:88
 msgid "Allow new comments to be posted"
 msgstr "Permitir que se añadan nuevos comentarios"
 
-#: blango/models.py:103
-msgid "Entry"
-msgstr "Entrada"
-
-#: blango/models.py:104 templates/blango/entry.html:26
-#: templates/blango/list.html:44 templates/blango/list.html.py:77
-msgid "Tags"
-msgstr "Etiquetas"
-
-#: blango/models.py:105
-msgid "Language"
-msgstr "Lenguaje"
-
-#: blango/models.py:106
-msgid "Date published"
-msgstr "Fecha de publicación"
-
-#: blango/models.py:107
-msgid "Options"
-msgstr "Opciones"
-
-#: blango/models.py:108
-msgid "Published translations"
-msgstr "Traducciones publicadas"
-
-#: blango/models.py:113
+#: blango/models.py:94
 msgid "entry"
 msgstr "entrada"
 
-#: blango/models.py:114
+#: blango/models.py:95
 msgid "entries"
 msgstr "entradas"
 
-#: blango/models.py:171 blango/models.py:189
+#: blango/models.py:168
+#: blango/models.py:183
 msgid "comment"
 msgstr "comentario"
 
-#: blango/models.py:172
+#: blango/models.py:169
 msgid "trackback"
 msgstr "trackback"
 
-#: blango/models.py:173
+#: blango/models.py:170
 msgid "pingback"
 msgstr "pingback"
 
-#: blango/models.py:179
+#: blango/models.py:176
 msgid "Comment"
 msgstr "Comentario"
 
-#: blango/models.py:181
+#: blango/models.py:178
 msgid "Comment type"
 msgstr "Tipo de comentario"
 
-#: blango/models.py:190
+#: blango/models.py:184
 msgid "comments"
 msgstr "comentarios"
 
-#: blango/models.py:229 blango/models.py:234
+#: blango/models.py:223
+#: blango/models.py:228
 msgid "by"
 msgstr "de"
 
@@ -229,63 +244,113 @@ msgstr "Error del servidor"
 msgid "%(when)s ago"
 msgstr "hace %(when)s"
 
-#: templates/blango/entry.html:8 templates/blango/entry.html.py:11
-msgid "Latest comments for"
-msgstr "Últimos comentarios en"
+#: templates/blango/cleanblue/base.html:47
+msgid "Popular entries"
+msgstr "Entradas populares"
 
-#: templates/blango/entry.html:19 templates/blango/list.html:70
+#: templates/blango/cleanblue/base.html:49
+msgid "This week"
+msgstr "Esta semana"
+
+#: templates/blango/cleanblue/base.html:53
+msgid "This month"
+msgstr "Este mes"
+
+#: templates/blango/cleanblue/entry.html:13
+#: templates/blango/cleanblue/list.html:74
+#: templates/blango/default/entry.html:19
+#: templates/blango/default/list.html:70
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/blango/entry.html:21 templates/blango/entry.html.py:74
-#: templates/blango/list.html:72
+#: templates/blango/cleanblue/entry.html:15
+#: templates/blango/cleanblue/entry.html:68
+#: templates/blango/cleanblue/list.html:76
+#: templates/blango/default/entry.html:21
+#: templates/blango/default/entry.html:74
+#: templates/blango/default/list.html:72
 msgid "at"
 msgstr "a las"
 
-#: templates/blango/entry.html:34
+#: templates/blango/cleanblue/entry.html:28
+#: templates/blango/default/entry.html:34
 msgid "This entry is also available in the following languages:"
 msgstr "Esta entrada también está disponible en los siguientes lenguajes:"
 
-#: templates/blango/entry.html:60 templates/blango/list.html:84
+#: templates/blango/cleanblue/entry.html:54
+#: templates/blango/cleanblue/list.html:88
+#: templates/blango/default/entry.html:60
+#: templates/blango/default/list.html:84
 #, python-format
 msgid "%(ccount)s comment"
 msgid_plural "%(ccount)s comments"
 msgstr[0] "%(ccount)s comentario"
 msgstr[1] "%(ccount)s comentarios"
 
-#: templates/blango/entry.html:61
+#: templates/blango/cleanblue/entry.html:55
+#: templates/blango/default/entry.html:61
 msgid "for"
 msgstr "para"
 
-#: templates/blango/entry.html:79
+#: templates/blango/cleanblue/entry.html:73
+#: templates/blango/default/entry.html:79
 msgid "Permalink"
 msgstr "Enlace permanente"
 
-#: templates/blango/entry.html:93
+#: templates/blango/cleanblue/entry.html:87
+#: templates/blango/default/entry.html:93
 msgid "Submit"
 msgstr "Enviar"
 
-#: templates/blango/entry.html:96
+#: templates/blango/cleanblue/entry.html:90
+#: templates/blango/default/entry.html:96
 msgid "Comments for this entry are currently disabled"
 msgstr "Los comentarios para esta entrada están actualmente desactivados"
 
-#: templates/blango/list.html:6 templates/blango/list.html.py:8
-#: templates/blango/list.html:15 templates/blango/list.html.py:17
+#: templates/blango/cleanblue/list.html:6
+#: templates/blango/cleanblue/list.html:8
+#: templates/blango/default/list.html:6
+#: templates/blango/default/list.html:8
+#: templates/blango/default/list.html:15
+#: templates/blango/default/list.html:17
 msgid "Latest entries in"
 msgstr "Últimas entradas en"
 
-#: templates/blango/list.html:23 templates/blango/list.html.py:26
+#: templates/blango/cleanblue/list.html:16
+#: templates/blango/cleanblue/list.html:20
+msgid "Latest entries"
+msgstr "Últimas entradas"
+
+#: templates/blango/cleanblue/list.html:16
+#: templates/blango/cleanblue/list.html:20
+#, python-format
+msgid " in %(lname)s"
+msgstr "en %(lname)s"
+
+#: templates/blango/cleanblue/list.html:27
+#: templates/blango/cleanblue/list.html:30
+#: templates/blango/default/list.html:23
+#: templates/blango/default/list.html:26
 msgid "Admin"
 msgstr "Administración"
 
-#: templates/blango/list.html:27
+#: templates/blango/cleanblue/list.html:31
+#: templates/blango/default/list.html:27
 msgid "Add entry"
 msgstr "Añadir entrada"
 
-#: templates/blango/list.html:33
+#: templates/blango/cleanblue/list.html:37
+#: templates/blango/default/list.html:33
 msgid "Archives"
 msgstr "Archivos"
 
-#: templates/blango/list.html:56
+#: templates/blango/cleanblue/list.html:60
+#: templates/blango/default/list.html:56
 msgid "Latest notes"
 msgstr "Últimas notas"
+
+#: templates/blango/default/entry.html:8
+#: templates/blango/default/entry.html:11
+msgid "Latest comments for"
+msgstr "Últimos comentarios en"
+

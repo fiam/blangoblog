@@ -14,6 +14,12 @@ from blango.forms import *
 def get_template_name(name):
     return 'blango/%s/%s' % (settings.BLANGO_THEME, name)
 
+def server_error(request):
+    return direct_to_template(request, get_template_name('500.html'))
+
+def page_not_found(request):
+    return direct_to_template(request, get_template_name('404.html'))
+
 def list_view(request, lang, tag_slug, year, month, page):
     entries = Entry.published.order_by('-pub_date')
     base_url = request.path

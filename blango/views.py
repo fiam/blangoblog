@@ -52,7 +52,8 @@ def list_view(request, lang, tag_slug, year, month, page):
 
 def entry_view(request, entry_slug):
     entry = get_object_or_404(Entry, slug=entry_slug)
-    EntryHit.objects.create(entry=entry)
+    if entry.author != request.user:
+        EntryHit.objects.create(entry=entry)
 
     dates = Entry.objects.filter(language=entry.language).dates('pub_date', 'month')
     tags = Tag.for_language(entry.language)

@@ -7,6 +7,13 @@ from django.db import connection
 
 register = template.Library()
 
+DAYS = {
+    'd': 1,
+    'w': 7,
+    'm': 30,
+    'y': 365,
+}
+
 def truncate(value, max_len):
     if len(value) < max_len:
         return value
@@ -15,20 +22,22 @@ def truncate(value, max_len):
 
 @register.simple_tag
 def popentries(value):
-    v = value.strip('"').lower()
-    if v == 'w':
-        days = 5
-    elif v == 'm':
-        days = 30
-    elif v == 'y':
-        days = 365
+    try:
+        days = DAYS[value.lower()]
+    except KeyError:
+        raise template.TemplateSyntaxError('Invalid period '
+            ' (valid choices are d, w, m and y')
 
     markup = []
     d = unicode(datetime.now() - timedelta(days=days))
     cursor = connection.cursor()
-    cursor.execute('SELECT entry_id FROM blango_entryhit GROUP BY entry_id ORDER BY COUNT(entry_id) DESC LIMIT 5')
+    cursor.execute('SELECT entry_id FROM blango_entryhit '
+        'WHERE "when" > \'%s\' GROUP BY entry_id ORDER BY '
+        'COUNT(entry_id) DESC LIMIT 5' % d)
     for row in cursor.fetchall():
         entry = Entry.objects.get(pk=row[0])
-        markup.append(u'<dd><a href="%s">%s</a></dd>' % (entry.get_absolute_url(), truncate(entry.title, 35)))
+        markup.append(u'<dd><a href="%s">%s</a></dd>' %
+            (entry.get_absolute_url(), truncate(entry.title, 35)))
     
+    cursor.close()
     return ''.join(markup)

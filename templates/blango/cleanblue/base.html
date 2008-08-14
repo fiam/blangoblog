@@ -28,6 +28,10 @@
         </div>
     <div id="header">
         <div id="header-inner">
+            <div id="tagcloud">
+                {% load tagcloud %}
+                {% tagcloud "w" ".6" "2.5" %}
+            </div>
         </div>
     </div>
     <div id="main-wrapper">
@@ -46,11 +50,15 @@
             {% load popentries %}
             <h4>{% trans "Popular entries" %}</h4>
             <dl>
-                <dt>{% trans "This week" %}</dt>
+                <dt>{% trans "Last day" %}</dt>
+                {% popentries "d" %}
+            </dl>
+            <dl>
+                <dt>{% trans "Last week" %}</dt>
                 {% popentries "w" %}
             </dl>
             <dl>
-                <dt>{% trans "This month" %}</dt>
+                <dt>{% trans "Last month" %}</dt>
                 {% popentries "m" %}
             </dl>
             <div style="clear:both;text-align:right;font-size:70%;font-weight:bold">

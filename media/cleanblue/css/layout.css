@@ -35,6 +35,10 @@ a:hover {
     border-bottom: 3px solid #FFF;
     padding: 15px 1em 0;
 }
+#tagcloud {
+    text-align: center;
+    padding: 0 5em;
+}
 #blog-title {
     margin-bottom: .3em;
 }
@@ -356,4 +360,13 @@ span.medium {
     color: #FFFFCC;
     font-size: 90%;
     margin-bottom: 1em;
+}
+a.tag:visited,
+a.tag {
+    color: #FFF;
+    margin: .3em 1em;
+    text-shadow: .3em #444;
+}
+a.tag:hover {
+    text-decoration: none;
 }

@@ -23,6 +23,19 @@
                     <li><a href="{{ blango_url }}{{ entry.language.iso639_1 }}/tag/{{ t.slug }}/">{{ t }}</a></li>
                 {% endfor %}
             </ul>
+        {% if entry.follows %}
+            <p>{% trans "This entry is a follow-up to" %} <a href="{{ entry.follows.get_absolute_url }}">{{ entry.follows.title }}</a></p>
+        {% endif %}
+        {% if entry.followups.all %}
+            <div>
+            <p>{% trans "Follow-ups for this entry:" %}</p>
+            <ul>
+                {% for e in entry.followups.all %}
+                    <li><a href="{{ e.follows.get_absolute_url }}">{{ e.follows.title }}</a></li>
+                {% endfor %}
+            </ul>
+            </div>
+        {% endif %}
         </div>
         {% if entry.translations.all %}
             {% trans "This entry is also available in the following languages:" %}

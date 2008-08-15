@@ -86,6 +86,7 @@ class Entry(models.Model):
     draft = models.BooleanField(_('Save as draft (don\'t publish it yet)'), default=False)
     translations = models.ManyToManyField('Entry', blank=True, verbose_name=_('translations'))
     allow_comments = models.BooleanField(_('Allow new comments to be posted'), default=True)
+    follows = models.ForeignKey('self', null=True, verbose_name=_('This entry is a follow-up to'), related_name='followups')
 
     objects = models.Manager()
     published = PublishedEntryManager()

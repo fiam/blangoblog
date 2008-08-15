@@ -20,6 +20,7 @@ class EntryAdmin(admin.ModelAdmin):
         (_('Date published'), {'fields': ('pub_date', )}),
         (_('Options'), { 'fields': ('draft', 'allow_comments')}),
         (_('Published translations'), { 'fields': ('translations', )}),
+        (_('This entry is a follow-up to'), { 'fields': ('follows', )}),
     )
 
     radio_fields = {'language': admin.HORIZONTAL}

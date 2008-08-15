@@ -161,6 +161,12 @@ li.entry .ebody {
     padding: 0.5em;
     font-size: 0.8em;
 }
+.meta p {
+    margin: 0.3em 0 0;
+}
+.meta div ul {
+    margin-left: 3em;
+}
 blockquote {
     background: #E9F8FF;
     color: #336699;

@@ -366,6 +366,7 @@ a.tag {
     color: #FFF;
     margin: .3em 1em;
     text-shadow: .3em #444;
+    line-height: 1.2em;
 }
 a.tag:hover {
     text-decoration: none;

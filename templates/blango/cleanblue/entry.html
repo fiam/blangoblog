@@ -31,7 +31,7 @@
             <p>{% trans "Follow-ups for this entry:" %}</p>
             <ul>
                 {% for e in entry.followups.all %}
-                    <li><a href="{{ e.follows.get_absolute_url }}">{{ e.follows.title }}</a></li>
+                    <li><a href="{{ e.get_absolute_url }}">{{ e.title }}</a></li>
                 {% endfor %}
             </ul>
             </div>

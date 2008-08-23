@@ -36,6 +36,16 @@
             </ul>
             </div>
         {% endif %}
+        {% if entry.related.all %}
+            <div>
+                {% trans "Related entries (automatically generated):" %}
+                <ul class="related">
+                    {% for e in entry.related.all %}
+                        <li><a href="{{ e.get_absolute_url }}">{{ e.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
         </div>
         {% if entry.translations.all %}
             {% trans "This entry is also available in the following languages:" %}

@@ -99,3 +99,5 @@ BLANGO_SUBTITLE = u'(rhymes with liam)'
 BLANGO_MEDIA = '/site-media/cleanblue/'
 BLANGO_THEME = 'cleanblue'
 
+from os.path import abspath, dirname
+LIBSTEMMER_PATH = dirname(abspath(__file__)) + '/lib/lib/libstemmer.so.0'

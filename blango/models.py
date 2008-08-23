@@ -8,10 +8,13 @@ from django.conf import settings
 from blango.spider import Spider
 from blango.email import send_subscribers_email
 
+from stem import Stemmer, HAS_LIBSTEMMER
+
 from markdown import markdown
 
 from datetime import datetime, timedelta
 import re
+from threading import Thread
 
 class short_description(object):
     def __init__(self, desc):
@@ -70,6 +73,19 @@ class Tag(models.Model):
     def for_language(language):
         return Tag.objects.filter(entry__language=language).distinct()
 
+
+class Stem(models.Model):
+    value = models.CharField(max_length=32, db_index=True, unique=True)
+
+    def __init__(self, *args, **kwargs):
+        super(Stem, self).__init__(*args, **kwargs)
+        self.value = self.value[:32]
+
+    def save(self, *args, **kwargs):
+        self.value = self.value[:32]
+        super(Stem, self).save(*args, **kwargs)
+
+
 class PublishedEntryManager(models.Manager):
     def get_query_set(self):
         return super(PublishedEntryManager, self).get_query_set().filter(draft=False, pub_date__lte=datetime.now())
@@ -84,9 +100,10 @@ class Entry(models.Model):
     body_html = models.TextField(blank=True)
     pub_date = models.DateTimeField(_('Publication date'), default=datetime.now)
     draft = models.BooleanField(_('Save as draft (don\'t publish it yet)'), default=False)
-    translations = models.ManyToManyField('Entry', blank=True, verbose_name=_('translations'))
+    related = models.ManyToManyField('self', blank=True, verbose_name=_('related entries'), related_name='related_set')
+    translations = models.ManyToManyField('self', blank=True, verbose_name=_('translations'), related_name='translation_set')
     allow_comments = models.BooleanField(_('Allow new comments to be posted'), default=True)
-    follows = models.ForeignKey('self', null=True, verbose_name=_('This entry is a follow-up to'), related_name='followups')
+    follows = models.ForeignKey('self', blank=True, null=True, verbose_name=_('This entry is a follow-up to'), related_name='followups')
 
     objects = models.Manager()
     published = PublishedEntryManager()
@@ -139,6 +156,8 @@ class Entry(models.Model):
                 published_now = True
 
         super(Entry, self).save()
+        self.save_stems()
+        Thread(target=self.find_related).run()
         if published_now:
             self.ping()
 
@@ -163,6 +182,57 @@ class Entry(models.Model):
     @property
     def slug_generator(self):
         return self.title
+
+    def save_stems(self):
+        if not HAS_LIBSTEMMER:
+            return
+        try:
+            stemmer = Stemmer(self.language.iso639_1)
+        except RuntimeError:
+            return
+
+        self.stems.all().delete()
+        r = re.compile('\w{4,32}', re.UNICODE)
+        words = r.findall(self.body)
+        num_words = float(len(words))
+        stemmed_words = {}
+
+        for word in words:
+            stem_value = stemmer.stem(word)
+            stemmed_words.setdefault(stem_value, 0)
+            stemmed_words[stem_value] += 1
+
+        for stem, value in stemmed_words.iteritems():
+            stem, created = Stem.objects.get_or_create(value=stem)
+            self.stems.create(stem=stem, value=value/num_words)
+
+    def find_related(self):
+        for e in Entry.published.exclude(pk=self.pk):
+            abs_dist, max_dist = 0, 0
+            common_stems = []
+            for entry_stem in e.stems.all():
+                try:
+                    stem = self.stems.get(stem=entry_stem.stem)
+                    abs_dist += (stem.value - entry_stem.value) ** 2
+                    common_stems.append(stem.pk)
+                    max_dist += stem.value ** 2 + entry_stem.value ** 2
+                except EntryStems.DoesNotExist:
+                    increment = entry_stem.value ** 2
+                    abs_dist += increment
+                    max_dist += increment
+
+            for entry_stem in self.stems.exclude(pk__in=common_stems):
+                increment = entry_stem.value ** 2
+                abs_dist += increment
+                max_dist += increment
+
+            if abs_dist/max_dist < 0.6:
+                self.related.add(e)
+
+class EntryStems(models.Model):
+    entry = models.ForeignKey(Entry, db_index=True, related_name='stems')
+    stem = models.ForeignKey(Stem, related_name='entries')
+    value = models.FloatField()
 
 class Comment(models.Model):
     COMMENT_TYPES = [
@@ -203,7 +273,7 @@ class Comment(models.Model):
     def author_name(self):
         if self.user is not None:
             return self.user.username
-        
+
         return self.author
 
     @property
@@ -217,7 +287,7 @@ class Comment(models.Model):
                     (self.author_uri, force_escape(self.author_name)))
 
         return mark_safe(force_escape(self.author))
-    
+
     @property
     def web_title(self):
         return mark_safe('%s %s %s' % \

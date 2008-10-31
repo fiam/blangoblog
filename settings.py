@@ -1,6 +1,10 @@
 #coding=utf-8
 # Django settings for blog project.
 
+from os.path import abspath, dirname, join
+
+PROJECT_DIR = dirname(abspath(__file__))
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -80,7 +84,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/fiam/blog/templates/',
+    join(PROJECT_DIR, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -99,5 +103,4 @@ BLANGO_SUBTITLE = u'(rhymes with liam)'
 BLANGO_MEDIA = '/site-media/cleanblue/'
 BLANGO_THEME = 'cleanblue'
 
-from os.path import abspath, dirname
-LIBSTEMMER_PATH = dirname(abspath(__file__)) + '/lib/lib/libstemmer.so.0'
+LIBSTEMMER_PATH = join(PROJECT_DIR, 'lib', 'lib', 'libstemmer.so.0')

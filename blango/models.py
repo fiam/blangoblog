@@ -54,9 +54,9 @@ class Tag(models.Model):
         verbose_name = _('tag')
         verbose_name_plural = _('tags')
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = make_slug(self)
-        super(Tag, self).save()
+        super(Tag, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return settings.BLANGO_URL + 'tag/%s/' % self.slug
@@ -145,7 +145,7 @@ class Entry(models.Model):
                     page_name=settings.BLANGO_TITLE):
                 s.pingback(self.get_absolute_url())
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = make_slug(self)
         self.body_html = markdown(self.body, ['codehilite'])
         published_now = False
@@ -154,7 +154,7 @@ class Entry(models.Model):
                 self.pub_date = datetime.now()
                 published_now = True
 
-        super(Entry, self).save()
+        super(Entry, self).save(*args, **kwargs)
         self.save_stems()
         if published_now:
             self.ping()

@@ -14,7 +14,6 @@ from markdown import markdown
 
 from datetime import datetime, timedelta
 import re
-from threading import Thread
 
 class short_description(object):
     def __init__(self, desc):
@@ -157,7 +156,6 @@ class Entry(models.Model):
 
         super(Entry, self).save()
         self.save_stems()
-        Thread(target=self.find_related).run()
         if published_now:
             self.ping()
 
@@ -205,6 +203,8 @@ class Entry(models.Model):
         for stem, value in stemmed_words.iteritems():
             stem, created = Stem.objects.get_or_create(value=stem)
             self.stems.create(stem=stem, value=value/num_words)
+
+        self.find_related()
 
     def find_related(self):
         for e in Entry.published.exclude(pk=self.pk):

@@ -104,3 +104,4 @@ BLANGO_MEDIA = '/site-media/cleanblue/'
 BLANGO_THEME = 'cleanblue'
 
 LIBSTEMMER_PATH = join(PROJECT_DIR, 'lib', 'lib', 'libstemmer.so.0')
+RELATED_THRESHOLD = 0.6 # Don't change this unless you know what you're doing

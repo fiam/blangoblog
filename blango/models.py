@@ -226,7 +226,7 @@ class Entry(models.Model):
                 abs_dist += increment
                 max_dist += increment
 
-            if abs_dist/max_dist < 0.6:
+            if abs_dist/max_dist < settings.RELATED_THRESHOLD:
                 self.related.add(e)
 
 class EntryStems(models.Model):

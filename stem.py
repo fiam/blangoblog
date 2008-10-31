@@ -11,7 +11,7 @@ else:
 try:
     libstemmer = CDLL(library_path)
     HAS_LIBSTEMMER = True
-except float:
+except OSError:
     HAS_LIBSTEMMER = False
 
 class CStemmer(Structure):

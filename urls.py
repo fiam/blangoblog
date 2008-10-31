@@ -12,6 +12,8 @@ handler500 = 'blango.views.server_error'
 handler404 = 'blango.views.page_not_found'
 
 if settings.DEBUG:
+    from os.path import abspath, dirname, join
+    PROJECT_DIR = dirname(abspath(__file__))
     urlpatterns += patterns('',
-        (r'^site-media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/fiam/blog/media/'}),
+        (r'^site-media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': join(PROJECT_DIR, 'media')}),
     )

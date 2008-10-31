@@ -107,6 +107,7 @@
 {% if entry.allow_comments %}
     <form class="commentform" method="post" action="{{ entry.get_absolute_url }}">
         {{ comment_form.as_p }}
+        <p>{% trans "HTML is escaped, links are automatically converted" %}</p>
         <input type="submit" value="{% trans "Submit" %}" />
     </form>
 {% else %}

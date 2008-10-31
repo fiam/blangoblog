@@ -182,7 +182,7 @@ class Entry(models.Model):
         return self.title
 
     def save_stems(self):
-        if not HAS_LIBSTEMMER:
+        if self.draft or not HAS_LIBSTEMMER:
             return
         try:
             stemmer = Stemmer(self.language.iso639_1)

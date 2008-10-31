@@ -44,7 +44,7 @@ class TagCloudNode(template.Node):
         cursor = connection.cursor()
         cursor.execute('SELECT t.id, t.name, t.slug, COUNT(et.tag_id) FROM '
             'blango_entryhit h JOIN blango_entry_tags et USING (entry_id) '
-            'JOIN blango_tag t ON et.tag_id = t.id WHERE h.when > \'%s\''
+            'JOIN blango_tag t ON et.tag_id = t.id WHERE h."when" > \'%s\''
             'GROUP BY t.id,t.name, t.slug ORDER BY t.name;' % d)
 
         max_count = 0

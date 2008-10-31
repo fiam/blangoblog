@@ -12,7 +12,7 @@ from blango.magicforms import MagicModelForm
 # the Django admin application
 
 class CommentForm(MagicModelForm):
-    author = forms.CharField(label=_('Name'), max_length=16)
+    author = forms.CharField(label=_('Name'), max_length=32)
     author_uri = forms.CharField(label=_('Website'), max_length=256, required=False)
     author_email = forms.EmailField(label=_('Email'), help_text=mark_safe('<span class="small">%s</span>' % _('(Won\'t be published)')))
     subscribed = forms.BooleanField(required=False, label='', help_text=mark_safe('<span class="medium">%s</span>' % _('Notify me of followup comments via e-mail')))

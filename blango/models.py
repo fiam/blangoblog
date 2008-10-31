@@ -241,7 +241,7 @@ class Comment(models.Model):
         ('P', _('pingback')),
     ]
     entry = models.ForeignKey(Entry)
-    author = models.CharField(_('Name'), max_length=16, blank=True)
+    author = models.CharField(_('Name'), max_length=64, blank=True)
     author_uri = models.CharField(_('Website'), max_length=256, blank=True)
     author_email = models.EmailField(_('Email'), blank=True)
     body = models.TextField(_('Comment'), max_length=1000)

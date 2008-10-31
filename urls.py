@@ -5,7 +5,7 @@ from django.conf import settings
 admin.autodiscover()
 urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
-    (r'^', include('blog.blango.urls')),
+    (r'^', include('blangoblog.blango.urls')),
 )
 
 handler500 = 'blango.views.server_error'

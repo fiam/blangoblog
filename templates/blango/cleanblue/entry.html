@@ -98,7 +98,7 @@
             </div>
             {% if c.body %}
                 <div class="comment-body">
-                    {{ c.body|linebreaks }}
+                    {{ c.body|urlizetrunc:100|linebreaks }}
                 </div>
             {% endif %}
         </li>

@@ -254,12 +254,12 @@ class Comment(models.Model):
         verbose_name = _('comment')
         verbose_name_plural = _('comments')
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.author_uri and \
                 not self.author_uri.startswith('http://') and \
                 not self.author_uri.startswith('https://'):
             self.author_uri = 'http://%s' % self.author_uri
-        super(Comment, self).save()
+        super(Comment, self).save(*args, **kwargs)
         send_subscribers_email(self)
 
     def get_absolute_url(self):

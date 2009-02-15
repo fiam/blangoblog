@@ -2,6 +2,7 @@ from blango.models import *
 
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 admin.site.register(Language)
 
@@ -13,6 +14,9 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Tag, TagAdmin)
 
 class EntryAdmin(admin.ModelAdmin):
+    class Media:
+        js = ( 'js/wmd/wmd.js', )
+
     fieldsets = (
         (_('Entry'), {'fields': ('title', 'body')}),
         (_('Tags'), {'fields': ('tags', )}),

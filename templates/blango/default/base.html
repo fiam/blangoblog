@@ -3,11 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>{{ blango_title }}{% block subtitle %}{% endblock %}</title>
+<title>{{ BLANGO_TITLE }}{% block subtitle %}{% endblock %}</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link href="{{ blango_media }}css/layout.css" rel="stylesheet" type="text/css" />
-<link href="{{ blango_media }}css/code.css" rel="stylesheet" type="text/css" />
+<link href="{{ BLANGO_MEDIA_URL }}css/layout.css" rel="stylesheet" type="text/css" />
+<link href="{{ BLANGO_MEDIA_URL }}css/code.css" rel="stylesheet" type="text/css" />
 {% block rss %}{% endblock %}
 {% block pingback %}{% endblock %}
 </head>
@@ -17,14 +17,14 @@
             {% if languages %}
                 <div id="languages">
                     {% for l in languages %}
-                            <a title="{{ l.name }}" href="{{ blango_url }}{{ l.iso639_1 }}/">
-                                <img alt="{{ l.name }}" src="{{ blango_media}}lang/{{ l.iso639_1 }}.gif" />
+                            <a title="{{ l.name }}" href="{{ BLANGO_URL }}{{ l.iso639_1 }}/">
+                                <img alt="{{ l.name }}" src="{{ BLANGO_MEDIA_URL }}lang/{{ l.iso639_1 }}.gif" />
                             </a>
                     {% endfor %}
                 </div>
             {% endif %}
-            <h1><a href="{{ blango_url }}">{{ blango_title }}</a></h1>
-            <h2><a href="{{ blango_url }}">{{ blango_subtitle }}</a></h2>
+            <h1><a href="{{ BLANGO_URL }}">{{ BLANGO_TITLE }}</a></h1>
+            <h2><a href="{{ BLANGO_URL }}">{{ BLANGO_SUBTITLE }}</a></h2>
     </div>
     <div id="main-wrapper">
         <div id="navbar">

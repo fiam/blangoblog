@@ -3,20 +3,20 @@
 {% load humanize %}
 {% block rss %}
 {% if tag_slug %}
-<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }} ({{ tag_slug }})" href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ blango_lang }}"/>
+<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }} ({{ tag_slug }})" href="{{ BLANGO_URL }}feeds/tag/{{ tag_slug }}/{{ blango_lang }}"/>
 {% else %}
-<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }}" href="{{ blango_url }}feeds/latest/{{ blango_lang }}"/>
+<link rel="alternate" type="application/rss+xml" title="{% trans "Latest entries in" %} {{ language.name }}" href="{{ BLANGO_URL }}feeds/latest/{{ blango_lang }}"/>
 {% endif %}
 {% endblock %}
 {% block navbar %}
 <div id="rssbox">
     {% block rssbox %}
     {% if tag_slug %}
-        <a href="{{ blango_url }}feeds/tag/{{ tag_slug }}/{{ blango_lang }}">
+        <a href="{{ BLANGO_URL }}feeds/tag/{{ tag_slug }}/{{ blango_lang }}">
             {% trans "Latest entries" %}{% if language %} {% blocktrans with language.name as lname %} in {{ lname }}{% endblocktrans %}{% endif %} ({{ tag_slug }})
         </a>
     {% else %}
-        <a href="{{ blango_url }}feeds/latest/{{ blango_lang }}">
+        <a href="{{ BLANGO_URL }}feeds/latest/{{ blango_lang }}">
             {% trans "Latest entries" %}{% if language %} {% blocktrans with language.name as lname %} in {{ lname }}{% endblocktrans %}{% endif %}
         </a>
     {% endif %}
@@ -27,8 +27,8 @@
         <h3>{% trans "Admin" %}</h3>
         <div class="navbox-body">
             <ul>
-                <li>&raquo; <a href="{{ blango_url }}admin/">{% trans "Admin" %}</a></li>
-                <li>&raquo; <a href="{{ blango_url }}admin/blango/entry/add/">{% trans "Add entry" %}</a></li>
+                <li>&raquo; <a href="{{ BLANGO_URL }}admin/">{% trans "Admin" %}</a></li>
+                <li>&raquo; <a href="{{ BLANGO_URL }}admin/blango/entry/add/">{% trans "Add entry" %}</a></li>
             </ul>
         </div>
     </div>
@@ -38,7 +38,7 @@
     <div class="navbox-body">
         <ul>
             {% for d in dates %}
-                <li>&raquo; <a href="{{ blango_url }}{{ blango_lang }}{{ d.year }}/{{ d|date:"m" }}/">{{ d|date:"F, Y" }}</a></li>
+                <li>&raquo; <a href="{{ BLANGO_URL }}{{ blango_lang }}{{ d.year }}/{{ d|date:"m" }}/">{{ d|date:"F, Y" }}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -49,7 +49,7 @@
     <div class="navbox-body">
         <ul>
             {% for t in tags %}
-                <li>&raquo; <a href="{{ blango_url }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
+                <li>&raquo; <a href="{{ BLANGO_URL }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -71,7 +71,7 @@
         <li class="entry" id="entry-{{ e.id }}">
             <h3>
                 <a href="{{ e.get_absolute_url }}">{{ e.title }}</a>
-                {% if user.is_staff %}<span class="edit">( <a href={{ blango_url }}admin/blango/entry/{{ e.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
+                {% if user.is_staff %}<span class="edit">( <a href={{ BLANGO_URL }}admin/blango/entry/{{ e.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
             </h3>
             <span class="time">{{ e.pub_date|naturalday }} {% trans "at" %} {{ e.pub_date|time:"H:i:s" }} {{ e.pub_date|date:"T" }}</span>
             <div class="ebody">
@@ -80,7 +80,7 @@
             <div class="meta">
                 {% trans "Tags" %}: <ul class="tags">
                     {% for t in e.tags.all %}
-                        <li><a href="{{ blango_url }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
+                        <li><a href="{{ BLANGO_URL }}{{ blango_lang }}tag/{{ t.slug }}/">{{ t }}</a></li>
                     {% endfor %}
                 </ul>
             | <span class="comments">

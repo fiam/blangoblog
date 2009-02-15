@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load humanize %}
 {% block pingback %}
-<link rel="pingback" href="{{ blango_url }}xmlrpc/" />
+<link rel="pingback" href="{{ BLANGO_URL }}xmlrpc/" />
 {% endblock %}
 {% block subtitle %} &raquo; {{ entry.title }}{% endblock %}
 {% block content %}
@@ -10,7 +10,7 @@
     <li class="entry" id="entry-{{ entry.id }}">
         <h2>
             {{ entry.title }}
-            {% if user.is_staff %}<span class="edit">( <a href={{ blango_url }}admin/blango/entry/{{ entry.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
+            {% if user.is_staff %}<span class="edit">( <a href={{ BLANGO_URL }}admin/blango/entry/{{ entry.id }}/>{% trans "Edit" %}</a> )</span>{% endif %}
         </h2>
         <span class="time">{{ entry.pub_date|naturalday }} {% trans "at" %} {{ entry.pub_date|time:"H:i:s" }} {{ entry.pub_date|date:"T" }}</span>
         <div class="ebody">
@@ -20,7 +20,7 @@
             {% trans "Tags" %}:
             <ul class="tags">
                 {% for t in entry.tags.all %}
-                    <li><a href="{{ blango_url }}{{ entry.language.iso639_1 }}/tag/{{ t.slug }}/">{{ t }}</a></li>
+                    <li><a href="{{ BLANGO_URL }}{{ entry.language.iso639_1 }}/tag/{{ t.slug }}/">{{ t }}</a></li>
                 {% endfor %}
             </ul>
         {% if entry.follows %}
@@ -53,7 +53,7 @@
             {% for t in entry.translations.all %}
                 <li>
                     <a href="{{ t.get_absolute_url }}">
-                        <img alt="{{ t.slug }}" src="/site-media/lang/{{ t.language.iso639_1 }}.gif" />
+                        <img alt="{{ t.slug }}" src="{{ BLANGO_MEDIA_URL }}lang/{{ t.language.iso639_1 }}.gif" />
                     </a>
                 </li>
             {% endfor %}

@@ -45,7 +45,7 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/m/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -97,11 +97,14 @@ INSTALLED_APPS = (
     'blango',
 )
 
-BLANGO_URL = 'http://django:8000/'
+# Change this
+
+BLANGO_URL = 'http://django/'
 BLANGO_TITLE = u'fíam'
 BLANGO_SUBTITLE = u'(rhymes with liam)'
-BLANGO_MEDIA = '/site-media/cleanblue/'
 BLANGO_THEME = 'cleanblue'
+
+BLANGO_MEDIA_URL = '%s%s/' % (MEDIA_URL, BLANGO_THEME)
 
 LIBSTEMMER_PATH = join(PROJECT_DIR, 'lib', 'lib', 'libstemmer.so.0')
 RELATED_THRESHOLD = 0.6 # Don't change this unless you know what you're doing

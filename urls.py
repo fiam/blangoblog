@@ -15,5 +15,5 @@ if settings.DEBUG:
     from os.path import abspath, dirname, join
     PROJECT_DIR = dirname(abspath(__file__))
     urlpatterns += patterns('',
-        (r'^site-media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': join(PROJECT_DIR, 'media')}),
+        (r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], 'django.views.static.serve', {'document_root': join(PROJECT_DIR, 'media')}),
     )

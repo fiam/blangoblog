@@ -47,7 +47,7 @@ class Language(models.Model):
         return self.name
 
 class Tag(models.Model):
-    name = models.CharField('Tag name', max_length=32)
+    name = models.CharField('Tag name', max_length=32, unique=True)
     slug = models.SlugField(blank=True)
 
     class Meta:

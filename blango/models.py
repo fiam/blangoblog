@@ -25,7 +25,7 @@ class short_description(object):
 def make_slug(obj):
     slug = slugify(obj.slug_generator)[:50]
     retval = slug
-    i = 2;
+    i = 2
     pk = obj.pk or 0
     while True:
         try:

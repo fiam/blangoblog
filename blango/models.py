@@ -245,7 +245,6 @@ class LinkEntry(Entry):
 
     def save(self, *args, **kwargs):
         spider = Spider(self.link)
-        print spider.oembed
         if 'html' in spider.oembed:
             self.html = spider.oembed['html']
         elif spider.oembed.get('type') == 'photo':
@@ -253,7 +252,6 @@ class LinkEntry(Entry):
                     'width="%(width)s" height="%(height)s" />' % \
                     spider.oembed
 
-        print getattr(self, 'pre_html', None)
         self.title = spider.oembed.get('title') or spider.get_title()
         super(LinkEntry, self).save(*args, **kwargs)
 

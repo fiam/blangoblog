@@ -38,7 +38,7 @@ class EntryAdmin(admin.ModelAdmin):
 
 class LinkEntryAdmin(EntryAdmin):
     fieldsets = (
-        (_('Entry'), {'fields': ('link', 'body')}),
+        (_('Entry'), {'fields': ('link', 'title', 'body')}),
         (_('Tags'), {'fields': ('tags', )}),
         (_('Language'), {'fields': ('language', )}),
         (_('Date published'), {'fields': ('pub_date', )}),
@@ -47,7 +47,8 @@ class LinkEntryAdmin(EntryAdmin):
         (_('This entry is a follow-up to'), { 'fields': ('follows', )}),
     )
 
-    list_display = ('link', 'language', 'formatted_tags', 'pub_date')
+    list_display = ('title', 'link', 'language', 'formatted_tags', 'pub_date')
+
 admin.site.register(Entry, EntryAdmin)
 admin.site.register(LinkEntry, LinkEntryAdmin)
 

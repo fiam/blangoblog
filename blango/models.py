@@ -89,7 +89,7 @@ class PublishedEntryManager(models.Manager):
         return super(PublishedEntryManager, self).get_query_set().filter(draft=False, pub_date__lte=datetime.now())
 
 class Entry(models.Model):
-    title = models.CharField(_('title'), max_length=65)
+    title = models.CharField(_('title'), max_length=65, blank=True)
     slug = models.SlugField(max_length=65, blank=True)
     author = models.ForeignKey(User, blank=True)
     language = models.ForeignKey(Language, verbose_name=_('language'))
@@ -252,7 +252,8 @@ class LinkEntry(Entry):
                     'width="%(width)s" height="%(height)s" />' % \
                     spider.oembed
 
-        self.title = spider.oembed.get('title') or spider.get_title()
+        if not self.title:
+            self.title = spider.oembed.get('title') or spider.get_title()
         super(LinkEntry, self).save(*args, **kwargs)
 
 class EntryStems(models.Model):

@@ -1,3 +1,6 @@
+import re
+from datetime import datetime, timedelta
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify, capfirst, force_escape
@@ -10,9 +13,6 @@ from blango.spider import Spider
 from stem import Stemmer, HAS_LIBSTEMMER
 
 from markdown import markdown
-
-from datetime import datetime, timedelta
-import re
 
 class short_description(object):
     def __init__(self, desc):

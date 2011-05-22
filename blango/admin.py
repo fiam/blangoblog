@@ -36,7 +36,20 @@ class EntryAdmin(admin.ModelAdmin):
         form.instance.author = request.user
         return super(EntryAdmin, self).save_form(request, form, change)
 
+class LinkEntryAdmin(EntryAdmin):
+    fieldsets = (
+        (_('Entry'), {'fields': ('link', 'body')}),
+        (_('Tags'), {'fields': ('tags', )}),
+        (_('Language'), {'fields': ('language', )}),
+        (_('Date published'), {'fields': ('pub_date', )}),
+        (_('Options'), { 'fields': ('draft', 'allow_comments')}),
+        (_('Published translations'), { 'fields': ('translations', )}),
+        (_('This entry is a follow-up to'), { 'fields': ('follows', )}),
+    )
+
+    list_display = ('link', 'language', 'formatted_tags', 'pub_date')
 admin.site.register(Entry, EntryAdmin)
+admin.site.register(LinkEntry, LinkEntryAdmin)
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('entry', 'formatted_author', 'body', 'submitted')

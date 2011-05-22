@@ -147,6 +147,8 @@ class Entry(models.Model):
     def save(self, *args, **kwargs):
         self.slug = make_slug(self)
         self.body_html = markdown(self.body, ['codehilite'])
+        if hasattr(self, 'html') and self.html:
+            self.body_html = '<p>%s</p>\n%s' % (self.html, self.body_html)
         published_now = False
         if not self.draft and self.pub_date < datetime.now() + timedelta(seconds=5):
             if not self.pk or Entry.objects.get(pk=self.pk).draft != self.draft:
@@ -227,6 +229,33 @@ class Entry(models.Model):
 
             if abs_dist/max_dist < settings.RELATED_THRESHOLD:
                 self.related.add(e)
+
+    def get_admin_absolute_url(self):
+        try:
+            return self.linkentry.get_admin_absolute_url()
+        except:
+            pass
+        return '/admin/%s/%s/%s/' % (self._meta.app_label, self._meta.module_name, self.pk)
+
+class LinkEntry(Entry):
+    class Meta:
+        verbose_name = _('link entry')
+        verbose_name_plural = _('link entries')
+    link = models.URLField(_('link'), max_length=512, verify_exists=False)
+
+    def save(self, *args, **kwargs):
+        spider = Spider(self.link)
+        print spider.oembed
+        if 'html' in spider.oembed:
+            self.html = spider.oembed['html']
+        elif spider.oembed.get('type') == 'photo':
+            self.html = '<img alt="%(title)s" src="%(url)s" ' \
+                    'width="%(width)s" height="%(height)s" />' % \
+                    spider.oembed
+
+        print getattr(self, 'pre_html', None)
+        self.title = spider.oembed.get('title') or spider.get_title()
+        super(LinkEntry, self).save(*args, **kwargs)
 
 class EntryStems(models.Model):
     entry = models.ForeignKey(Entry, db_index=True, related_name='stems')

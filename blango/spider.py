@@ -6,11 +6,14 @@ import StringIO
 import gzip
 import re
 import os
+import sys
+import json
 from tempfile import mkstemp
 from htmlentitydefs import name2codepoint
 from xmlrpclib import ServerProxy, Error
 
-import sys
+import lxml
+import lxml.html
 
 def is_absolute_link(link):
     return link.startswith('http://') or link.startswith('https://')
@@ -151,6 +154,31 @@ class BaseSpider(object):
 
     def is_image(self):
         return self.stream and self.stream.headers['Content-Type'].find('image') == 0
+
+    @property
+    def soup(self):
+        if not hasattr(self, '_soup'):
+            self._require_fetch()
+            self._soup = lxml.html.fromstring(self.data)
+        return self._soup
+
+    def get_title(self):
+        title = self.soup.xpath('//title')
+        if title:
+            return title[0].text_content()
+        return self.uri
+
+    @property
+    def oembed(self):
+        if not hasattr(self, '_oembed_data'):
+            url = 'http://api.embed.ly/1/oembed?url=%s&format=json' % \
+                urllib2.quote(self.uri)
+            try:
+                self._oembed_data = json.loads(urllib2.urlopen(url).read())
+            except:
+                self._oembed_data = {}
+
+        return self._oembed_data
 
 class Spider(BaseSpider):
     def __init__(self, uri, data = ''):

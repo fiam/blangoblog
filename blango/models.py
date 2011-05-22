@@ -6,7 +6,6 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 
 from blango.spider import Spider
-from blango.email import send_subscribers_email
 
 from stem import Stemmer, HAS_LIBSTEMMER
 
@@ -248,7 +247,6 @@ class Comment(models.Model):
     submitted = models.DateTimeField(default=datetime.now)
     type = models.CharField(_('Comment type'), max_length=1, choices=COMMENT_TYPES, default='C')
     user = models.ForeignKey(User, default=None, null=True, blank=True)
-    subscribed = models.BooleanField(_('Notify me of followup comments via e-mail'), default=False)
 
     class Meta:
         verbose_name = _('comment')
@@ -260,7 +258,6 @@ class Comment(models.Model):
                 not self.author_uri.startswith('https://'):
             self.author_uri = 'http://%s' % self.author_uri
         super(Comment, self).save(*args, **kwargs)
-        send_subscribers_email(self)
 
     def get_absolute_url(self):
         position = Comment.objects.filter(entry=self.entry, submitted__lt=self.submitted).count() + 1

@@ -9,7 +9,11 @@
 <ul id="entries">
     <li class="entry" id="entry-{{ entry.id }}">
         <h2>
-            {{ entry.title }}
+            {% if entry.linkentry %}
+                <a class="entry-link" href="{{ entry.linkentry.link }}" title="{{ entry.title }}">{{ entry.title }}</a>
+            {% else %}
+                {{ entry.title }}
+            {% endif %}
             {% if user.is_staff %}<span class="edit">( <a href="{{ entry.get_admin_absolute_url }}">{% trans "Edit" %}</a> )</span>{% endif %}
         </h2>
         <span class="time">{{ entry.pub_date|naturalday }} {% trans "at" %} {{ entry.pub_date|time:"H:i:s" }} {{ entry.pub_date|date:"T" }}</span>

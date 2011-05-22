@@ -106,12 +106,12 @@ ul.tags li {
 li.entry h3 {
     letter-spacing: -1px;
 }
-li.entry h3 a {
+li.entry h3 a, a.entry-link {
     color: #007AC8;
     font-size: 1.1em;
     text-decoration: none;
 }
-li.entry h3 a:hover {
+li.entry h3 a:hover, a.entry-link:hover {
     color: #C60;
 }
 li.entry h4 {

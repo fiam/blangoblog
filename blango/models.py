@@ -1,4 +1,5 @@
 import re
+import urlparse
 from datetime import datetime, timedelta
 
 from django.db import models
@@ -147,8 +148,10 @@ class Entry(models.Model):
     def save(self, *args, **kwargs):
         self.slug = make_slug(self)
         self.body_html = markdown(self.body, ['codehilite'])
-        if hasattr(self, 'html') and self.html:
-            self.body_html = '<p>%s</p>\n%s' % (self.html, self.body_html)
+        if hasattr(self, 'pre_html') and self.pre_html:
+            self.body_html = '<p>%s</p>\n%s' % (self.pre_html, self.body_html)
+        if hasattr(self, 'post_html') and self.post_html:
+            self.body_html = '%s\n<p>%s</p>' % (self.body_html, self.post_html)
         published_now = False
         if not self.draft and self.pub_date < datetime.now() + timedelta(seconds=5):
             if not self.pk or Entry.objects.get(pk=self.pk).draft != self.draft:
@@ -246,12 +249,16 @@ class LinkEntry(Entry):
     def save(self, *args, **kwargs):
         spider = Spider(self.link)
         if 'html' in spider.oembed:
-            self.html = spider.oembed['html']
+            self.pre_html = '<div class="entry-embed">%s</div>' % \
+                spider.oembed['html']
         elif spider.oembed.get('type') == 'photo':
-            self.html = '<img alt="%(title)s" src="%(url)s" ' \
-                    'width="%(width)s" height="%(height)s" />' % \
-                    spider.oembed
+            self.pre_html = '<div class="entry-embed"><img alt="%(title)s" ' \
+                    'src="%(url)s" width="%(width)s" height="%(height)s" />' \
+                    '</div>' % spider.oembed
 
+        result = urlparse.urlparse(self.link)
+        self.post_html = _('<h4>From <a href="%s">%s</a></h4>') % \
+                (self.link, result.netloc)
         if not self.title:
             self.title = spider.oembed.get('title') or spider.get_title()
         super(LinkEntry, self).save(*args, **kwargs)

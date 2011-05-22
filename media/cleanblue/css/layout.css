@@ -377,3 +377,12 @@ a.tag {
 a.tag:hover {
     text-decoration: none;
 }
+.entry-embed img,
+.entry-embed object,
+.entry-embed iframe,
+.entry-embed embed {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #CCC;
+    padding: 2px;
+}

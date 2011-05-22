@@ -14,6 +14,18 @@ from blango.forms import *
 def get_template_name(name):
     return 'blango/%s/%s' % (settings.BLANGO_THEME, name)
 
+def get_comment_form(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated():
+            return UserCommentForm(request.POST)
+
+        return CommentForm(request.POST)
+
+    if request.user.is_authenticated():
+        return UserCommentForm()
+
+    return CommentForm()
+
 def server_error(request):
     return direct_to_template(request, get_template_name('500.html'))
 
@@ -58,22 +70,10 @@ def entry_view(request, entry_slug):
     dates = Entry.objects.filter(language=entry.language).dates('pub_date', 'month')
     tags = Tag.for_language(entry.language)
 
-    if request.user.is_authenticated():
-        comment_form = UserCommentForm()
-    else:
-        comment_form = CommentForm(request.META['REMOTE_ADDR'], entry.id)
-
-    if request.method == 'POST' and entry.allow_comments:
-        try:
-            if request.user.is_authenticated():
-                comment_form = UserCommentForm(request.POST)
-                comment_form.save(entry, request)
-            else:
-                comment_form = CommentForm(request.META['REMOTE_ADDR'], entry.id, request.POST)
-                comment_form.save(entry)
-            return HttpResponseRedirect(entry.get_absolute_url())
-        except ValueError:
-            pass
+    comment_form = get_comment_form(request)
+    if request.method == 'POST' and comment_form.is_valid():
+        comment_form.save(entry)
+        return HttpResponseRedirect(entry.get_absolute_url())
 
     language = entry.language
     blango_lang = '%s/' % language.iso639_1

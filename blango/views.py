@@ -56,6 +56,7 @@ def list_view(request, lang, tag_slug, year, month, page):
         tags = Tag.objects.all()
 
     languages = Language.objects.all()
+    dates = dates.reverse()
 
     paginator = QuerySetPaginator(entries, 5, base_url=base_url, page_suffix='%d/')
     page = paginator.page_or_404(page or 1)

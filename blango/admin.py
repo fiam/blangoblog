@@ -18,7 +18,7 @@ class EntryAdmin(admin.ModelAdmin):
         js = ( 'js/wmd/wmd.js', )
 
     fieldsets = (
-        (_('Entry'), {'fields': ('title', 'body')}),
+        (_('Entry'), {'fields': ('title', 'body', 'thumbnail', )}),
         (_('Tags'), {'fields': ('tags', )}),
         (_('Language'), {'fields': ('language', )}),
         (_('Date published'), {'fields': ('pub_date', )}),
@@ -38,7 +38,7 @@ class EntryAdmin(admin.ModelAdmin):
 
 class LinkEntryAdmin(EntryAdmin):
     fieldsets = (
-        (_('Entry'), {'fields': ('link', 'title', 'body')}),
+        (_('Entry'), {'fields': ('link', 'title', 'body', 'thumbnail', )}),
         (_('Tags'), {'fields': ('tags', )}),
         (_('Language'), {'fields': ('language', )}),
         (_('Date published'), {'fields': ('pub_date', )}),

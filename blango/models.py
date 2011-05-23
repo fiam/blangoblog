@@ -1,13 +1,17 @@
 import re
+import os
 import urlparse
 from datetime import datetime, timedelta
+from cStringIO import StringIO
 
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify, capfirst, force_escape
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.core.files.base import ContentFile
 from django.conf import settings
+from PIL import Image
 
 from blango.spider import Spider
 
@@ -103,6 +107,7 @@ class Entry(models.Model):
     translations = models.ManyToManyField('self', blank=True, verbose_name=_('translations'), related_name='translation_set')
     allow_comments = models.BooleanField(_('Allow new comments to be posted'), default=True)
     follows = models.ForeignKey('self', blank=True, null=True, verbose_name=_('This entry is a follow-up to'), related_name='followups')
+    thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
 
     objects = models.Manager()
     published = PublishedEntryManager()
@@ -152,6 +157,10 @@ class Entry(models.Model):
             self.body_html = '<p>%s</p>\n%s' % (self.pre_html, self.body_html)
         if hasattr(self, 'post_html') and self.post_html:
             self.body_html = '%s\n<p>%s</p>' % (self.body_html, self.post_html)
+        if self.thumbnail:
+            self.body_html = '<img class="thumbnail" src="%s" width="%s" ' \
+                    'height="%s" />%s' % (self.thumbnail.url,
+                    self.thumbnail.width, self.thumbnail.height, self.body_html)
         published_now = False
         if not self.draft and self.pub_date < datetime.now() + timedelta(seconds=5):
             if not self.pk or Entry.objects.get(pk=self.pk).draft != self.draft:
@@ -244,6 +253,7 @@ class LinkEntry(Entry):
     class Meta:
         verbose_name = _('link entry')
         verbose_name_plural = _('link entries')
+
     link = models.URLField(_('link'), max_length=512, verify_exists=False)
 
     def save(self, *args, **kwargs):
@@ -255,6 +265,28 @@ class LinkEntry(Entry):
             self.pre_html = '<div class="entry-embed"><img alt="%(title)s" ' \
                     'src="%(url)s" width="%(width)s" height="%(height)s" />' \
                     '</div>' % spider.oembed
+        elif not self.thumbnail:
+            thumbnail = None
+            thumbnail_size = (0, 0)
+            required_attrs = ('src', 'alt', 'width', 'height')
+            for img in spider.soup.xpath('//img'):
+                if all (k in img.attrib for k in required_attrs):
+                    width, height = int(img.get('width')), int(img.get('height'))
+                    if width * height > reduce(lambda x, y: x * y, thumbnail_size):
+                        thumbnail = img
+                        thumbnail_size = (width, height)
+            # Try to fetch a thumbnail
+            if thumbnail is not None:
+                THUMBNAIL_SIZE = 150
+                img_url = thumbnail.get('src')
+                img_data = spider.fetch(img_url)
+                im = Image.open(StringIO(img_data))
+                im.thumbnail((THUMBNAIL_SIZE, THUMBNAIL_SIZE))
+                buf = StringIO()
+                im.save(buf, format=im.format)
+                self.thumbnail.save(os.path.basename(img_url),
+                                    ContentFile(buf.getvalue()))
+                buf.close()
 
         result = urlparse.urlparse(self.link)
         self.post_html = _('<h4>From <a href="%s">%s</a></h4>') % \

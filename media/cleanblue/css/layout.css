@@ -386,3 +386,12 @@ a.tag:hover {
     border: 1px solid #CCC;
     padding: 2px;
 }
+.entry img.thumbnail {
+    border: 1px solid #CCC;
+    padding: 2px;
+    margin-right: 5px;
+    float: left;
+}
+.ebody {
+    overflow: auto;
+}

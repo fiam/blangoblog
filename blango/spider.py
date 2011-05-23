@@ -69,7 +69,7 @@ class BaseSpider(object):
         if not self.uri:
             raise RuntimeError('URI value missing')
         if not self.code:
-            self.fetch()
+            self.fetch_uri()
         return self.code == 200
 
     def _translate_entities(self):
@@ -115,7 +115,7 @@ class BaseSpider(object):
 
         self.data = newdata
 
-    def fetch(self):
+    def fetch_uri(self):
         try:
             try:
                 self.stream = self.opener.open(self.request)
@@ -179,6 +179,10 @@ class BaseSpider(object):
                 self._oembed_data = {}
 
         return self._oembed_data
+
+    @classmethod
+    def fetch(cls, url):
+        return urllib2.urlopen(url).read()
 
 class Spider(BaseSpider):
     def __init__(self, uri, data = ''):

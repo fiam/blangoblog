@@ -17,12 +17,16 @@ def get_template_name(name):
 def get_comment_form(request):
     if request.method == 'POST':
         if request.user.is_authenticated():
-            return UserCommentForm(request.POST)
+            form = UserCommentForm(request.POST)
+            form.user = request.user
+            return form
 
         return CommentForm(request.POST)
 
     if request.user.is_authenticated():
-        return UserCommentForm()
+        form = UserCommentForm()
+        form.user = request.user
+        return form
 
     return CommentForm()
 

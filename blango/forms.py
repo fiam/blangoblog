@@ -38,8 +38,8 @@ class UserCommentForm(forms.ModelForm):
         model = Comment
         fields = ('body', )
 
-    def save(self, entry, request):
-        self.instance.user = request.user
+    def save(self, entry):
+        self.instance.user = self.user
         self.instance.entry = entry
         super(UserCommentForm, self).save(entry)
 
